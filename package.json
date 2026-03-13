@@ -1,0 +1,16 @@
+{
+  "name": "dotbrand",
+  "private": true,
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "dev": "bun run --filter '*' dev",
+    "dev:api": "bun run --filter api dev",
+    "dev:web": "bun run --filter web dev",
+    "lint": "bunx biome check",
+    "lint:fix": "bunx biome check --fix"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.7",
+    "lefthook": "^2.1.4"
+  }
+}

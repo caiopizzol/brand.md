@@ -1,0 +1,7 @@
+pre-commit:
+  commands:
+    lint-and-format:
+      glob: "*.{ts,tsx,js,jsx,json,css}"
+      run: bunx biome check --staged --no-errors-on-unmatched {staged_files}
+    typecheck:
+      run: bunx tsc --noEmit -p apps/web/tsconfig.json && bunx tsc --noEmit -p apps/api/tsconfig.json
