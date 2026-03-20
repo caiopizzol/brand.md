@@ -91,7 +91,7 @@ brand.md
 Add the marketplace and install the plugin:
 
 ```
-/plugin marketplace add caiopizzol/brand.md
+/plugin marketplace add thebrandmd/brand.md
 /plugin install brand-md@brand-md
 ```
 
@@ -106,7 +106,7 @@ The skill researches your market, interviews you, and generates a complete `bran
 ### Or test locally
 
 ```bash
-git clone https://github.com/caiopizzol/brand.md
+git clone https://github.com/thebrandmd/brand.md
 claude --plugin-dir ./brand.md
 ```
 
