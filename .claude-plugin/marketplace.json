@@ -1,0 +1,21 @@
+{
+  "name": "brand-md",
+  "owner": {
+    "name": "Caio Pizzol",
+    "email": "caio@pizzol.dev"
+  },
+  "metadata": {
+    "description": "brand.md — an open standard for brand identity files"
+  },
+  "plugins": [
+    {
+      "name": "brand-md",
+      "source": ".",
+      "description": "Generate brand.md files — the open standard for brand identity. Research your market, interview the founder, and produce a complete brand strategy, voice, and visual direction.",
+      "version": "0.1.0",
+      "homepage": "https://dotbrand.dev",
+      "license": "MIT",
+      "keywords": ["brand", "branding", "brand-identity", "brand-strategy", "ai", "open-standard"]
+    }
+  ]
+}

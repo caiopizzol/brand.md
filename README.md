@@ -86,10 +86,13 @@ brand.md
 
 ## Generate one
 
-### Install the plugin
+### Install
+
+Add the marketplace and install the plugin:
 
 ```
-/plugin install brand-md
+/plugin marketplace add caiopizzol/brand.md
+/plugin install brand-md@brand-md
 ```
 
 ### Run it
