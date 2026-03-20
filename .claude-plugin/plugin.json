@@ -1,0 +1,13 @@
+{
+  "name": "dotbrand",
+  "version": "0.1.0",
+  "description": "Generate brand.md files — the open standard for brand identity. Research your market, interview the founder, and produce a complete brand strategy, voice, and visual direction.",
+  "author": {
+    "name": "Caio Pizzol",
+    "url": "https://github.com/caiopizzol"
+  },
+  "homepage": "https://dotbrand.dev",
+  "repository": "https://github.com/caiopizzol/dotbrand",
+  "license": "MIT",
+  "keywords": ["brand", "branding", "brand-identity", "brand-strategy", "brand-md", "marketing", "ai-branding"]
+}

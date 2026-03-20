@@ -1,0 +1,124 @@
+# brand.md
+
+An open standard for brand identity files.
+
+`brand.md` is a file that lives in your project root and tells AI tools how your brand looks, sounds, and behaves. Like `AGENTS.md` gives AI agents coding instructions, `brand.md` gives them brand context.
+
+## Quick example
+
+```markdown
+---
+name: "Acme"
+tagline: "Build faster, break nothing"
+version: 1
+language: en
+---
+
+# Acme
+
+## Strategy
+
+### Overview
+Acme is a deployment platform for teams that ship daily...
+
+### Positioning
+Category: Zero-downtime deployment infrastructure.
+Not a CI/CD pipeline. Not a hosting provider. Not DevOps consulting...
+
+### Personality
+Archetype: The Reliable Engineer...
+
+### Promise
+Ship with confidence. Every time...
+
+### Guardrails
+If it sounds like marketing, rewrite it...
+
+## Voice
+
+### Identity
+We are the infrastructure teams trust when downtime isn't an option...
+
+### Tonal Rules
+- Write like an engineer explaining to another engineer.
+- Never use "revolutionary" or "game-changing."
+- Calm confidence. Always.
+
+| We Say | We Never Say |
+|---|---|
+| "Zero-downtime deploys" | "Seamless cloud solution" |
+
+...
+
+## Visual
+
+### Colors
+- Primary: #0F172A (deep navy) — headings, UI chrome
+- Accent: #38BDF8 (sky blue) — CTAs, links, highlights
+...
+```
+
+## Structure
+
+```
+brand.md
+├── Frontmatter (name, tagline, version, language)
+├── ## Strategy
+│   ├── ### Overview
+│   ├── ### Positioning
+│   ├── ### Personality
+│   ├── ### Promise
+│   └── ### Guardrails
+├── ## Voice
+│   ├── ### Identity
+│   ├── ### Tagline & Slogans
+│   ├── ### Manifesto (optional)
+│   ├── ### Message Pillars
+│   ├── ### Phrases
+│   ├── ### Social Bios (optional)
+│   └── ### Tonal Rules
+└── ## Visual
+    ├── ### Colors
+    ├── ### Typography
+    ├── ### Photography (optional)
+    └── ### Style (optional)
+```
+
+## Generate one
+
+### Install the plugin
+
+```
+/plugin install dotbrand
+```
+
+### Run it
+
+```
+/dotbrand:brand
+```
+
+The skill researches your market, interviews you, and generates a complete `brand.md`.
+
+### Or test locally
+
+```bash
+git clone https://github.com/caiopizzol/dotbrand
+claude --plugin-dir ./dotbrand
+```
+
+Then run `/dotbrand:brand` inside Claude Code.
+
+## Spec
+
+Full specification: [spec/brand-md.md](spec/brand-md.md)
+
+## Why brand.md?
+
+Every AI agent writing copy, generating social posts, designing pages, or creating marketing assets currently has **zero brand context**. You either paste brand guidelines into every prompt, or you get generic output.
+
+`brand.md` fixes this. One file, one location, every tool reads it.
+
+## License
+
+MIT
