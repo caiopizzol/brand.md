@@ -13,7 +13,7 @@
       "source": ".",
       "description": "Generate brand.md files — the open standard for brand identity. Research your market, interview the founder, and produce a complete brand strategy, voice, and visual direction.",
       "version": "0.1.0",
-      "homepage": "https://dotbrand.dev",
+      "homepage": "https://thebrand.md",
       "license": "MIT",
       "keywords": ["brand", "branding", "brand-identity", "brand-strategy", "ai", "open-standard"]
     }

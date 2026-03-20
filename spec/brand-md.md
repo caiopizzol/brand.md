@@ -2,7 +2,7 @@
 
 **Version:** 0.1.0
 **Status:** Draft
-**Website:** dotbrand.dev
+**Website:** thebrand.md (until brand.md is acquired)
 
 ## What is brand.md?
 

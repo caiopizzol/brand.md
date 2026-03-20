@@ -6,7 +6,7 @@
 
 Like `llms.txt` gives LLMs context about a website, and `AGENTS.md` gives AI agents coding instructions, `brand.md` gives any tool the brand context it needs to stay on-brand.
 
-**Website:** dotbrand.dev
+**Website:** thebrand.md (until brand.md is acquired)
 **Spec:** [spec/brand-md.md](spec/brand-md.md)
 
 ## Three layers
@@ -66,7 +66,7 @@ Each layer can be extracted independently. Writing a blog post? Read Voice. Buil
 - Real-world brand.md example from professional deliverables
 
 ### Next
-- dotbrand.dev — spec website, examples directory, adoption tracker
+- thebrand.md — spec website, examples directory, adoption tracker
 - GitHub repo — open standard, community contributions
 - Integrations — Cursor, Windsurf, and other AI tools reading `brand.md` automatically
 

@@ -4,6 +4,19 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
+    paths:
+      - "site/**"
 
-# Placeholder for future dotbrand.dev website deployment
-# Will be updated when the spec website is built
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy site --project-name=thebrand-md

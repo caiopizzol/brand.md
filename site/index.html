@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>brand.md — An open standard for brand identity</title>
+<meta name="description" content="brand.md is a file that lives in your project root and tells AI tools how your brand looks, sounds, and behaves.">
+<meta property="og:title" content="brand.md — An open standard for brand identity">
+<meta property="og:description" content="Like AGENTS.md for coding agents, brand.md gives AI tools your brand context.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://thebrand.md">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <a class="nav-logo" href="/"><strong>brand</strong>.md</a>
+  <div class="nav-right">
+    <a class="nav-link" href="#example">Example</a>
+    <a class="nav-link" href="#spec">Spec</a>
+    <a class="nav-cta" href="https://github.com/caiopizzol/brand.md">GitHub</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-eyebrow">Open Standard</div>
+  <h1>Give AI tools your <em>brand context.</em></h1>
+  <p class="hero-sub">A single file in your project root. Strategy, voice, and visual direction — readable by every AI tool.</p>
+  <div class="hero-actions">
+    <a class="hero-btn" href="#install">Install Plugin</a>
+    <a class="hero-link" href="#example">See example</a>
+  </div>
+</div>
+
+<!-- Problem -->
+<section>
+  <div class="section-label">The Problem</div>
+  <p class="problem-text">
+    Every AI agent writing copy, generating social posts, or designing pages has <strong>zero brand context</strong>.
+    You paste guidelines into every prompt, or you get generic output.<br><br>
+    Like <code>AGENTS.md</code> gives coding agents instructions, and <code>llms.txt</code> gives LLMs website context,
+    <code>brand.md</code> gives any tool the brand context it needs to stay on-brand.
+  </p>
+</section>
+
+<!-- Example -->
+<section id="example">
+  <div class="section-label">What it looks like</div>
+  <div class="section-title">A complete brand in one file</div>
+  <div class="section-sub">Markdown with YAML frontmatter. Renders on GitHub. Any editor highlights it. Any AI tool reads it.</div>
+  <div class="terminal-card">
+    <div class="terminal-header">
+      <div class="td r"></div>
+      <div class="td y"></div>
+      <div class="td g"></div>
+      <span class="terminal-filename">brand.md</span>
+    </div>
+    <div class="terminal-body"><span class="c">---</span>
+<span class="k">name</span>: <span class="s">"Acme"</span>
+<span class="k">tagline</span>: <span class="s">"Build faster, break nothing"</span>
+<span class="k">version</span>: <span class="s">1</span>
+<span class="k">language</span>: <span class="s">en</span>
+<span class="c">---</span>
+
+<span class="h"># Acme</span>
+
+<span class="h2">## Strategy</span>
+
+<span class="h2">### Overview</span>
+Acme is a deployment platform for teams that ship daily.
+Not a CI/CD pipeline. Not a hosting provider.
+Zero-downtime deployment infrastructure.
+
+<span class="h2">### Promise</span>
+Ship with confidence. Every time.
+If it works locally, it works in production.
+
+<span class="h2">### Guardrails</span>
+If it sounds like marketing, rewrite it.
+
+<span class="h2">## Voice</span>
+
+<span class="h2">### Tonal Rules</span>
+- Write like an engineer explaining to another engineer.
+- Never use "revolutionary" or "game-changing."
+- Calm confidence. Always.
+
+| We Say                  | We Never Say              |
+|-------------------------|---------------------------|
+| "Zero-downtime deploys" | "Seamless cloud solution" |
+| "Ships in seconds"      | "Blazingly fast"          |
+
+<span class="h2">## Visual</span>
+
+<span class="h2">### Colors</span>
+- Primary: #0F172A (deep navy) — headings, UI chrome
+- Accent: #38BDF8 (sky blue) — CTAs, links, highlights
+- Avoid: gradients, neon, anything that feels "startup-y"</div>
+  </div>
+</section>
+
+<!-- Three Layers -->
+<section>
+  <div class="section-label">Structure</div>
+  <div class="section-title">Three layers</div>
+  <div class="section-sub">Each layer builds on the previous. Strategy informs Voice. Voice and Strategy inform Visual.</div>
+  <div class="layers-grid">
+    <div class="layer-card">
+      <div class="layer-num">01</div>
+      <div class="layer-title">Strategy</div>
+      <div class="layer-desc">Why the brand exists and where it stands. The foundation everything else builds on.</div>
+      <ul class="layer-sections">
+        <li>Overview</li>
+        <li>Positioning</li>
+        <li>Personality</li>
+        <li>Promise</li>
+        <li>Guardrails</li>
+      </ul>
+    </div>
+    <div class="layer-card">
+      <div class="layer-num">02</div>
+      <div class="layer-title">Voice</div>
+      <div class="layer-desc">How the brand speaks and writes. The most directly useful layer for AI tools generating content.</div>
+      <ul class="layer-sections">
+        <li>Identity</li>
+        <li>Tagline & Slogans</li>
+        <li>Message Pillars</li>
+        <li>Phrases</li>
+        <li>Tonal Rules</li>
+      </ul>
+    </div>
+    <div class="layer-card">
+      <div class="layer-num">03</div>
+      <div class="layer-title">Visual</div>
+      <div class="layer-desc">How the brand looks. Colors, typography, photography — everything text-describable.</div>
+      <ul class="layer-sections">
+        <li>Colors</li>
+        <li>Typography</li>
+        <li>Photography</li>
+        <li>Style</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Install -->
+<section id="install">
+  <div class="section-label">Generate one</div>
+  <div class="section-title">Three commands</div>
+  <div class="section-sub">The Claude Code plugin researches your market, interviews you, and generates a complete brand.md.</div>
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">01</div>
+      <div class="step-title">Add marketplace</div>
+      <div class="step-desc">Add the brand.md marketplace to Claude Code.</div>
+      <div class="step-code">/plugin marketplace add caiopizzol/brand.md</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">02</div>
+      <div class="step-title">Install plugin</div>
+      <div class="step-desc">Install the brand-md plugin from the marketplace.</div>
+      <div class="step-code">/plugin install brand-md@brand-md</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">03</div>
+      <div class="step-title">Run it</div>
+      <div class="step-desc">The skill researches competitors, interviews you, and generates your brand.md.</div>
+      <div class="step-code">/brand-md:brand</div>
+    </div>
+  </div>
+</section>
+
+<!-- Spec -->
+<section id="spec">
+  <div class="section-label">Specification</div>
+  <div class="section-title">16 sections. 3 layers.</div>
+  <div class="section-sub">12 required, 4 optional. <a href="https://github.com/caiopizzol/brand.md/blob/main/spec/brand-md.md" style="color: var(--gray-300); text-underline-offset: 3px;">Read the full spec &rarr;</a></div>
+
+  <div class="spec-table">
+    <div class="spec-group-label">Frontmatter</div>
+    <div class="spec-row"><span class="spec-name">name</span><span class="spec-desc">Brand name as it should appear everywhere</span><span class="spec-badge">required</span></div>
+    <div class="spec-row"><span class="spec-name">tagline</span><span class="spec-desc">Primary one-line brand signature</span><span class="spec-badge">required</span></div>
+    <div class="spec-row"><span class="spec-name">version</span><span class="spec-desc">Integer, starts at 1</span><span class="spec-badge">required</span></div>
+    <div class="spec-row"><span class="spec-name">language</span><span class="spec-desc">en or pt-BR</span><span class="spec-badge">required</span></div>
+
+    <div class="spec-group-label">Strategy</div>
+    <div class="spec-row"><span class="spec-name">Overview</span><span class="spec-desc">What, origin, deep problem, transformation</span><span class="spec-badge">required</span></div>
+    <div class="spec-row"><span class="spec-name">Positioning</span><span class="spec-desc">Category, NOT-list, differentials, territory</span><span class="spec-badge">required</span></div>
+    <div class="spec-row"><span class="spec-name">Personality</span><span class="spec-desc">Archetype, attributes, IS / IS NOT</span><span class="spec-badge">required</span></div>
+    <div class="spec-row"><span class="spec-name">Promise</span><span class="spec-desc">Core promise, base message, synthesizing phrase</span><span class="spec-badge">required</span></div>
+    <div class="spec-row"><span class="spec-name">Guardrails</span><span class="spec-desc">Tone summary, boundaries, litmus test</span><span class="spec-badge">required</span></div>
+
+    <div class="spec-group-label">Voice</div>
+    <div class="spec-row"><span class="spec-name">Identity</span><span class="spec-desc">Who we are statement + essence</span><span class="spec-badge">required</span></div>
+    <div class="spec-row"><span class="spec-name">Tagline & Slogans</span><span class="spec-desc">Primary + alternatives + slogan options</span><span class="spec-badge">required</span></div>
+    <div class="spec-row"><span class="spec-name">Manifesto</span><span class="spec-desc">8-12 paragraphs, poetic / declarative</span><span class="spec-badge optional">optional</span></div>
+    <div class="spec-row"><span class="spec-name">Message Pillars</span><span class="spec-desc">4-6 themes with key statements</span><span class="spec-badge">required</span></div>
+    <div class="spec-row"><span class="spec-name">Phrases</span><span class="spec-desc">5-8 ownable one-liners</span><span class="spec-badge">required</span></div>
+    <div class="spec-row"><span class="spec-name">Social Bios</span><span class="spec-desc">LinkedIn, Instagram, X, Website</span><span class="spec-badge optional">optional</span></div>
+    <div class="spec-row"><span class="spec-name">Tonal Rules</span><span class="spec-desc">Rules + boundaries + We Say / Never Say</span><span class="spec-badge">required</span></div>
+
+    <div class="spec-group-label">Visual</div>
+    <div class="spec-row"><span class="spec-name">Colors</span><span class="spec-desc">Hex values + usage rules + avoid</span><span class="spec-badge">required</span></div>
+    <div class="spec-row"><span class="spec-name">Typography</span><span class="spec-desc">Display, body, mono fonts + usage</span><span class="spec-badge">required</span></div>
+    <div class="spec-row"><span class="spec-name">Photography</span><span class="spec-desc">Mood, subjects, avoid</span><span class="spec-badge optional">optional</span></div>
+    <div class="spec-row"><span class="spec-name">Style</span><span class="spec-desc">Design keywords, references, direction</span><span class="spec-badge optional">optional</span></div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-left">MIT License. An open standard for brand identity.</div>
+  <div class="footer-links">
+    <a href="https://github.com/caiopizzol/brand.md">GitHub</a>
+    <a href="https://github.com/caiopizzol/brand.md/blob/main/spec/brand-md.md">Spec</a>
+    <a href="https://github.com/caiopizzol/brand.md/issues">Issues</a>
+  </div>
+</footer>
+
+</body>
+</html>

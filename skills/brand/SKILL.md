@@ -7,7 +7,7 @@ description: Generate a brand.md file — a complete brand identity system for a
 
 Generate a `brand.md` file — an open standard for brand identity. The output is a single markdown file with YAML frontmatter and three layers: Strategy, Voice, and Visual. It lives in the project root alongside README.md and CLAUDE.md, readable by both humans and AI tools.
 
-The format is defined at dotbrand.dev. This skill is the reference generator.
+The format is defined at thebrand.md (brand.md). This skill is the reference generator.
 
 ## Process
 
