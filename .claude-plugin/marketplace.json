@@ -10,7 +10,7 @@
   "plugins": [
     {
       "name": "brand-md",
-      "source": ".",
+      "source": "./",
       "description": "Generate brand.md files — the open standard for brand identity. Research your market, interview the founder, and produce a complete brand strategy, voice, and visual direction.",
       "version": "0.1.0",
       "homepage": "https://thebrand.md",
