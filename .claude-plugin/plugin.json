@@ -1,5 +1,5 @@
 {
-  "name": "dotbrand",
+  "name": "brand-md",
   "version": "0.1.0",
   "description": "Generate brand.md files — the open standard for brand identity. Research your market, interview the founder, and produce a complete brand strategy, voice, and visual direction.",
   "author": {
@@ -7,7 +7,7 @@
     "url": "https://github.com/caiopizzol"
   },
   "homepage": "https://dotbrand.dev",
-  "repository": "https://github.com/caiopizzol/dotbrand",
+  "repository": "https://github.com/caiopizzol/brand.md",
   "license": "MIT",
   "keywords": ["brand", "branding", "brand-identity", "brand-strategy", "brand-md", "marketing", "ai-branding"]
 }

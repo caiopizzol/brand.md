@@ -89,13 +89,13 @@ brand.md
 ### Install the plugin
 
 ```
-/plugin install dotbrand
+/plugin install brand-md
 ```
 
 ### Run it
 
 ```
-/dotbrand:brand
+/brand-md:brand
 ```
 
 The skill researches your market, interviews you, and generates a complete `brand.md`.
@@ -103,11 +103,11 @@ The skill researches your market, interviews you, and generates a complete `bran
 ### Or test locally
 
 ```bash
-git clone https://github.com/caiopizzol/dotbrand
-claude --plugin-dir ./dotbrand
+git clone https://github.com/caiopizzol/brand.md
+claude --plugin-dir ./brand.md
 ```
 
-Then run `/dotbrand:brand` inside Claude Code.
+Then run `/brand-md:brand` inside Claude Code.
 
 ## Spec
 
