@@ -20,11 +20,18 @@
 </head>
 <body>
 
+<!-- Banner -->
+<div class="banner">
+  <span class="banner-tag">v0.2</span>
+  Spec update — brand.md now supports hierarchy. One brand, many products. <a href="#hierarchy">Read more &rarr;</a>
+</div>
+
 <!-- Nav -->
 <nav class="nav">
   <a class="nav-logo" href="/"><strong>brand</strong>.md</a>
   <div class="nav-right">
     <a class="nav-link" href="#example">Example</a>
+    <a class="nav-link" href="#hierarchy">Hierarchy</a>
     <a class="nav-link" href="#spec">Spec</a>
     <a class="nav-cta" href="https://github.com/thebrandmd/brand.md">GitHub</a>
   </div>
@@ -152,6 +159,62 @@ If it sounds like marketing, rewrite it.
   </div>
 </section>
 
+<!-- Hierarchy -->
+<section id="hierarchy">
+  <div class="section-label">Hierarchy</div>
+  <div class="section-title">One brand, many products</div>
+  <div class="section-sub">Like CLAUDE.md, brand.md supports directory-based hierarchy. Product brands inherit from the master brand and only define what's different.</div>
+  <div class="terminal-card">
+    <div class="terminal-header">
+      <div class="td r"></div>
+      <div class="td y"></div>
+      <div class="td g"></div>
+      <span class="terminal-filename">directory tree</span>
+    </div>
+    <div class="terminal-body"><span class="h2">acme/</span>
+├── <span class="k">brand.md</span>              <span class="c">← master brand (Acme Corp)</span>
+├── cloud/
+│   └── <span class="k">brand.md</span>          <span class="c">← product (Acme Cloud)</span>
+└── analytics/
+    └── <span class="k">brand.md</span>          <span class="c">← product (Acme Analytics)</span></div>
+  </div>
+
+  <div class="arch-grid">
+    <div class="layer-card">
+      <div class="layer-num">01</div>
+      <div class="layer-title">Branded House</div>
+      <div class="layer-desc">Master brand dominates. Product is an extension. Inherits almost everything.</div>
+      <ul class="layer-sections">
+        <li>Google &rarr; Google Maps</li>
+      </ul>
+    </div>
+    <div class="layer-card">
+      <div class="layer-num">02</div>
+      <div class="layer-title">Endorsed</div>
+      <div class="layer-desc">Product leads, parent endorses. Own identity with parent visible.</div>
+      <ul class="layer-sections">
+        <li>Marriott &rarr; Courtyard</li>
+      </ul>
+    </div>
+    <div class="layer-card">
+      <div class="layer-num">03</div>
+      <div class="layer-title">Sub-brand</div>
+      <div class="layer-desc">Shared DNA, distinct personality. Parent and product work together.</div>
+      <ul class="layer-sections">
+        <li>Apple &rarr; iPhone</li>
+      </ul>
+    </div>
+    <div class="layer-card">
+      <div class="layer-num">04</div>
+      <div class="layer-title">Independent</div>
+      <div class="layer-desc">Own identity. Parent is background. Full override.</div>
+      <ul class="layer-sections">
+        <li>P&amp;G &rarr; Tide</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 <!-- Install -->
 <section id="install">
   <div class="section-label">Generate one</div>
@@ -191,6 +254,8 @@ If it sounds like marketing, rewrite it.
     <div class="spec-row"><span class="spec-name">tagline</span><span class="spec-desc">Primary one-line brand signature</span><span class="spec-badge">required</span></div>
     <div class="spec-row"><span class="spec-name">version</span><span class="spec-desc">Integer, starts at 1</span><span class="spec-badge">required</span></div>
     <div class="spec-row"><span class="spec-name">language</span><span class="spec-desc">en or pt-BR</span><span class="spec-badge">required</span></div>
+    <div class="spec-row"><span class="spec-name">type</span><span class="spec-desc">master, product, or sub-brand</span><span class="spec-badge optional">optional</span></div>
+    <div class="spec-row"><span class="spec-name">architecture</span><span class="spec-desc">branded-house, endorsed, sub-brand, independent</span><span class="spec-badge optional">optional</span></div>
 
     <div class="spec-group-label">Strategy</div>
     <div class="spec-row"><span class="spec-name">Overview</span><span class="spec-desc">What, origin, deep problem, transformation</span><span class="spec-badge">required</span></div>

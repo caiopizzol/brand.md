@@ -61,8 +61,8 @@ Each layer can be extracted independently. Writing a blog post? Read Voice. Buil
 ## Roadmap
 
 ### Now
-- Spec v0.1 — section structure, required/optional fields, consumption guidelines
-- `/brand` skill — the reference generator
+- Spec v0.2 — hierarchy support, product brands, architecture types
+- `/brand` skill — the reference generator, with hierarchy-aware generation
 - Real-world brand.md example from professional deliverables
 
 ### Next

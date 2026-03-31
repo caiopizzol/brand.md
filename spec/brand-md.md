@@ -1,6 +1,6 @@
 # brand.md Specification
 
-**Version:** 0.1.0
+**Version:** 0.2.0
 **Status:** Draft
 **Website:** thebrand.md (until brand.md is acquired)
 
@@ -13,7 +13,7 @@ Any AI agent that writes copy, generates social posts, designs landing pages, or
 ## File Name and Location
 
 - **File name:** `brand.md` (lowercase, exactly)
-- **Location:** Project root directory
+- **Location:** Project root directory for the master brand; any subdirectory for product brands
 - **Format:** Markdown with YAML frontmatter
 
 The file is standard markdown. It renders on GitHub, any editor highlights it, and any markdown parser can process it.
@@ -37,6 +37,12 @@ language: en
 | `tagline` | Yes | Primary tagline — the one-line brand signature |
 | `version` | Yes | Integer, starts at 1, increments on regeneration |
 | `language` | Yes | Primary language: `en` or `pt-BR` |
+| `type` | No | `master` (default), `product`, or `sub-brand` |
+| `architecture` | No | `branded-house`, `endorsed`, `sub-brand`, or `independent` |
+
+**`type`** declares what this file represents. `master` is the root brand (the company itself). `product` is a distinct product within the company. `sub-brand` is an extension closer to the parent than a standalone product.
+
+**`architecture`** declares how tightly coupled this brand is to its parent. Only meaningful for non-master files. See [Hierarchy](#hierarchy) for details.
 
 Keep frontmatter minimal. Every field here is machine-actionable — an AI agent reads `name` to know what to call the brand, `tagline` for quick reference, `language` to know what language to generate content in. Anything requiring interpretation belongs in a section, not frontmatter.
 
@@ -69,6 +75,121 @@ The file uses H1 for the document title, H2 for layers, and H3 for sections with
 ### Photography            ← optional
 ### Style                  ← optional
 ```
+
+---
+
+## Hierarchy
+
+A company has one brand but multiple products. Each product needs its own voice, colors, and positioning — while staying connected to the parent brand. `brand.md` supports this through directory-based hierarchy, following the same pattern as `CLAUDE.md` files.
+
+### File discovery
+
+Tools discover `brand.md` files by walking up the directory tree from the current working directory. Every `brand.md` found between the working directory and the project root is loaded, closest first.
+
+```
+acme/
+├── brand.md                    ← master brand (Acme Corp)
+├── website/
+│   └── ...                     ← inherits root brand.md
+├── cloud/
+│   ├── brand.md                ← product brand (Acme Cloud)
+│   └── storage/
+│       └── brand.md            ← sub-product (Acme Cloud Storage)
+└── analytics/
+    └── brand.md                ← product brand (Acme Analytics)
+```
+
+A tool working in `acme/cloud/storage/` loads three files:
+1. `acme/brand.md` (master)
+2. `acme/cloud/brand.md` (product)
+3. `acme/cloud/storage/brand.md` (sub-product)
+
+A `brand.md` with no ancestors is a master brand, whether or not `type` is set.
+
+### Architecture types
+
+The `architecture` frontmatter field tells tools how much to inherit from the parent brand. Four models, from tightest coupling to full independence:
+
+| Architecture | Relationship | Real-world example |
+|---|---|---|
+| `branded-house` | Master brand dominates. Product is an extension. | Google → Google Maps |
+| `endorsed` | Product leads, parent endorses. | Marriott → Courtyard by Marriott |
+| `sub-brand` | Shared DNA, distinct personality. | Apple → iPhone |
+| `independent` | Own identity. Parent is background. | P&G → Tide |
+
+If `architecture` is omitted, tools should default to `endorsed` — the most common pattern.
+
+### Inheritance rules
+
+Child `brand.md` files are sparse. They only include sections where the product diverges from the parent. Missing sections are inherited from the nearest ancestor that defines them.
+
+Which sections are typically inherited depends on the architecture:
+
+| Layer / Section | `branded-house` | `endorsed` | `sub-brand` | `independent` |
+|---|---|---|---|---|
+| **Strategy > Overview** | Inherit, narrow focus | Own | Own | Own |
+| **Strategy > Positioning** | Inherit, narrow focus | Own | Own | Own |
+| **Strategy > Personality** | Inherit | Inherit | Own | Own |
+| **Strategy > Promise** | Inherit | Inherit | Own | Own |
+| **Strategy > Guardrails** | Inherit | Inherit | Inherit | Own |
+| **Voice > Identity** | Inherit | Own | Own | Own |
+| **Voice > Tagline & Slogans** | Own | Own | Own | Own |
+| **Voice > Tonal Rules** | Inherit | Inherit | Inherit | Own |
+| **Voice > Phrases** | Own | Own | Own | Own |
+| **Voice > Message Pillars** | Inherit | Own | Own | Own |
+| **Visual > Colors** | Inherit, accent override | Own | Own | Own |
+| **Visual > Typography** | Inherit | Inherit | Own | Own |
+
+This table is guidance, not enforcement. A product may include any section to override its parent, or omit any section to inherit it, regardless of architecture type.
+
+**Guardrails merge, not replace.** When a child defines its own Guardrails section, the content is added to the parent's guardrails. A child brand can tighten guardrails but should not loosen them. The parent's "What the brand cannot be" list and litmus test always apply to descendants — unless the architecture is `independent`.
+
+### Example: product brand.md
+
+A product `brand.md` that inherits Strategy and Visual from its parent, defining only its own Voice:
+
+```yaml
+---
+name: "Acme Cloud"
+tagline: "Infrastructure that disappears"
+version: 1
+language: en
+type: product
+architecture: endorsed
+---
+```
+
+```markdown
+# Acme Cloud
+
+## Strategy
+
+### Overview
+Acme Cloud is the infrastructure arm of Acme — the deployment
+platform for teams that need uptime guarantees above 99.99%.
+
+### Positioning
+Category: Enterprise cloud infrastructure.
+Not a hyperscaler. Not a hosting provider. Not DevOps consulting.
+
+## Voice
+
+### Identity
+We are the cloud you forget is there — until you check
+your uptime dashboard and smile.
+
+### Tagline & Slogans
+- Primary: "Infrastructure that disappears"
+- "99.99% is our floor, not our ceiling"
+- "The cloud you don't think about"
+
+### Phrases
+- "The cloud you forget about."
+- "Uptime isn't a feature. It's the product."
+- "We disappear so you can ship."
+```
+
+This file has no Personality, Promise, Guardrails, Tonal Rules, Message Pillars, Colors, Typography, or Style sections. All inherited from `acme/brand.md`.
 
 ---
 
@@ -272,7 +393,9 @@ When included:
 
 ## How AI Tools Should Consume brand.md
 
-An AI agent encountering a `brand.md` file should:
+### Single file
+
+An AI agent encountering a single `brand.md` file should:
 
 1. **Read frontmatter** for brand name, tagline, and language
 2. **Read Strategy** to understand what the brand is (context for any decision)
@@ -286,8 +409,22 @@ Each H2 layer can be extracted independently:
 - Preparing a pitch? → Strategy + Voice
 - Building a UI? → Visual + Strategy > Personality
 
+### Multiple files (hierarchy)
+
+When multiple `brand.md` files exist in the directory tree:
+
+1. **Discover** — walk up from the working directory, collect all `brand.md` files
+2. **Load the master first** — the root `brand.md` is the brand foundation
+3. **Apply each child in order** — from root to leaf, each child narrows or overrides
+4. **For sections present in the child** — use the child's version
+5. **For sections missing in the child** — inherit from the nearest ancestor that defines them
+6. **Read the `architecture` field** to understand coupling strength — this determines how much weight to give the parent vs. the child
+7. **Merge guardrails** — a child's Guardrails are additive. The parent's "cannot be" list applies to all descendants unless architecture is `independent`
+
+The mental model: brand.md inherits like CSS. The master brand is the base stylesheet. Each product layer adds specificity. More specific wins for explicit declarations. Unset properties cascade down.
+
 ## Versioning
 
 The `version` field in frontmatter is an integer that starts at 1. Increment it when the brand.md is regenerated or substantially edited. This allows tools to detect when a brand has been updated.
 
-The specification itself follows semantic versioning (e.g., 0.1.0). Breaking changes increment the major version.
+The specification itself follows semantic versioning (e.g., 0.2.0). Breaking changes increment the major version.

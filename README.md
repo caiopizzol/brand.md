@@ -62,7 +62,7 @@ We are the infrastructure teams trust when downtime isn't an option...
 
 ```
 brand.md
-├── Frontmatter (name, tagline, version, language)
+├── Frontmatter (name, tagline, version, language, type?, architecture?)
 ├── ## Strategy
 │   ├── ### Overview
 │   ├── ### Positioning
@@ -83,6 +83,32 @@ brand.md
     ├── ### Photography (optional)
     └── ### Style (optional)
 ```
+
+## Hierarchy
+
+Like `CLAUDE.md`, `brand.md` supports directory-based hierarchy. A master brand in the project root cascades down to product brands in subdirectories.
+
+```
+company/
+├── brand.md                    ← master brand (Acme Corp)
+├── cloud/
+│   └── brand.md                ← product brand (Acme Cloud)
+└── analytics/
+    └── brand.md                ← product brand (Acme Analytics)
+```
+
+Product brands are sparse — they only define sections where they diverge. Missing sections inherit from the parent. Guardrails always cascade down.
+
+Four architecture types control how much a product inherits:
+
+| Architecture | Coupling | Example |
+|---|---|---|
+| `branded-house` | Tightest | Google → Google Maps |
+| `endorsed` | Parent visible | Marriott → Courtyard by Marriott |
+| `sub-brand` | Shared DNA | Apple → iPhone |
+| `independent` | Loosest | P&G → Tide |
+
+See [spec/brand-md.md](spec/brand-md.md) for the full hierarchy specification.
 
 ## Generate one
 

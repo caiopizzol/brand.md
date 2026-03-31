@@ -1,15 +1,30 @@
 ---
 name: brand
-description: Generate a brand.md file — a complete brand identity system for a project. Use when the user asks to create branding, a brand.md file, brand strategy, or brand identity for a product or company.
+description: Generate a brand.md file — a complete brand identity system for a project. Use when the user asks to create branding, a brand.md file, brand strategy, or brand identity for a product or company. Supports hierarchy — detects parent brand.md files and generates product-level brands that inherit from them.
 ---
 
 # brand.md Generator
 
-Generate a `brand.md` file — an open standard for brand identity. The output is a single markdown file with YAML frontmatter and three layers: Strategy, Voice, and Visual. It lives in the project root alongside README.md and CLAUDE.md, readable by both humans and AI tools.
+Generate a `brand.md` file — an open standard for brand identity. The output is a markdown file with YAML frontmatter and three layers: Strategy, Voice, and Visual. It lives alongside README.md and CLAUDE.md, readable by both humans and AI tools.
 
 The format is defined at thebrand.md (brand.md). This skill is the reference generator.
 
 ## Process
+
+### Phase 0: Hierarchy Detection
+
+Before anything else, check for existing `brand.md` files in the directory tree.
+
+1. **Walk up** from the current working directory to the project root, looking for `brand.md` files
+2. **If a parent `brand.md` exists**, read it fully — this is the master brand. The new file will be a product or sub-brand that inherits from it
+3. **Tell the user** what you found: "I found a master brand.md for [Name] at the project root. I'll generate a product-level brand.md that inherits from it."
+4. **If no parent exists**, proceed normally — the output will be a master brand
+
+When generating a product brand:
+- The parent's Strategy, Voice, and Visual layers are your foundation
+- You are generating a **sparse file** — only include sections where the product diverges
+- The parent's Guardrails always apply. You can tighten them, not loosen them
+- Ask the user which architecture type fits: branded-house, endorsed, sub-brand, or independent
 
 ### Phase 1: Research
 
@@ -22,6 +37,8 @@ Before asking the user anything, research the brand independently. This is the w
 
 Do 5-8 searches with different angles. Don't stop at surface-level — dig into competitor about pages, read actual user complaints, understand the category dynamics.
 
+**For product brands:** focus research on the product's specific market, not the parent company. The parent brand's positioning is already defined — research how this product carves its own space within that umbrella.
+
 ### Phase 2: Founder Interview
 
 After research, present your findings and ask questions. This is NOT a form — it's a hypothesis the founder reacts to. Use your research to suggest defaults they can accept or modify.
@@ -30,6 +47,11 @@ After research, present your findings and ask questions. This is NOT a form — 
 - Brand name
 - One-line description (what it does, in their words)
 - URL (if exists)
+
+**For product brands, also ask:**
+- How does this product relate to the parent brand? (extension, standalone, experiment?)
+- Architecture type: branded-house, endorsed, sub-brand, or independent? (explain each briefly, suggest one based on your research)
+- What should this product inherit from the parent brand? What should be different?
 
 **Market (present your research, ask for confirmation/edits):**
 - Category — be specific ("Operating System for Sports Organizations" not "sports tech")
@@ -43,6 +65,8 @@ After research, present your findings and ask questions. This is NOT a form — 
 - Tone words (suggest 4-6 based on competitive whitespace)
 - What the brand must communicate (things the market ISN'T saying)
 - What the brand must never communicate (messaging patterns to avoid)
+
+**For product brands:** skip identity questions for sections that will be inherited. If the architecture is `branded-house`, you likely only need the product's tagline, positioning, and a few unique phrases. Don't ask about things the parent already defines.
 
 **Founder context:**
 - Why are you building this? (the personal reason)
@@ -169,6 +193,8 @@ The visual direction. Everything text-describable — no binary assets.
 
 ### Output Format
 
+#### Master brand
+
 Write the `brand.md` file as markdown with YAML frontmatter:
 
 ```markdown
@@ -237,6 +263,50 @@ language: en
 ```
 
 Save the file as `brand.md` in the project root (or wherever the user specifies).
+
+#### Product / sub-brand
+
+When a parent `brand.md` exists, generate a sparse file. Only include sections where the product diverges from the parent. Missing sections are inherited.
+
+```markdown
+---
+name: "[Product Name]"
+tagline: "[Product tagline]"
+version: 1
+language: en
+type: product
+architecture: endorsed
+---
+
+# [Product Name]
+
+## Strategy
+
+### Overview
+[Product-specific overview — what this product is within the parent brand]
+
+### Positioning
+[Product-specific positioning — its own market, category, differentials]
+
+## Voice
+
+### Identity
+[Product-specific identity — how this product introduces itself]
+
+### Tagline & Slogans
+[Product-specific taglines and slogans]
+
+### Phrases
+[Product-specific ownable one-liners]
+```
+
+The file should include a comment at the top (after frontmatter) indicating the inheritance:
+
+```markdown
+<!-- Inherits from: ../../brand.md (Acme Corp) -->
+```
+
+Save the file as `brand.md` in the product's directory.
 
 ## Quality Standards
 

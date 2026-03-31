@@ -32,6 +32,41 @@ body {
 
 ::selection { background: rgba(0,0,0,0.08); }
 
+/* Banner */
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 48px;
+  background: var(--black);
+  font-family: var(--mono);
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.02em;
+}
+
+.banner a {
+  color: rgba(255,255,255,0.8);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: rgba(255,255,255,0.25);
+  transition: color 0.15s;
+}
+
+.banner a:hover { color: #fff; }
+
+.banner-tag {
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--black);
+  background: rgba(255,255,255,0.88);
+  padding: 2px 7px;
+  border-radius: 3px;
+  font-weight: 500;
+}
+
 /* Nav */
 .nav {
   display: flex;
@@ -322,6 +357,18 @@ section {
 
 .layer-sections li:last-child { padding-bottom: 0; }
 
+/* Architecture grid (4 columns) */
+.arch-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border2);
+  max-width: 960px;
+  width: 100%;
+  border: 1px solid var(--border2);
+  margin-top: 40px;
+}
+
 /* Steps grid */
 .steps-grid {
   display: grid;
@@ -453,6 +500,7 @@ footer {
   .hero h1 { font-size: 40px; }
   section { padding: 60px 24px; }
   .layers-grid,
+  .arch-grid,
   .steps-grid { grid-template-columns: 1fr; }
   .container { padding: 0 24px; }
   footer { padding: 32px 24px; flex-direction: column; gap: 16px; text-align: center; }
