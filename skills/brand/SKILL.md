@@ -23,8 +23,10 @@ scales, spacing, layout, shape language, elevation, components, motion, UI
 iconography, responsive behavior. Those belong in a `DESIGN.md`, and Phase 4 hands
 off to one.
 
-Never write an applied design system into `brand.md`. Two files defining the same
-palette is the failure this boundary exists to prevent.
+Never write an applied design system into `brand.md`. The failure this boundary
+prevents is two files *independently* defining the applied palette and its roles.
+Mirroring an approved primitive downstream at its exact value is expected and
+required; inventing a second set of roles, ramps, and states is not.
 
 ## Process
 
@@ -36,20 +38,30 @@ Before anything else, survey what already exists.
    `brand.md` files. If a parent exists, read it fully. It is the master brand and
    the new file will be a product or sub-brand that inherits from it.
 2. **Walk down** from the project root for `DESIGN.md` files, skipping
-   `node_modules`, `dist`, `build`, and `vendor`. These are existing expressions of
-   the brand.
-3. **Report** what you found before proceeding: "Found a master brand.md for Acme
-   at the project root, and two design systems at website/DESIGN.md and
-   product/DESIGN.md. I will generate a product-level brand.md that inherits from
-   the master, and leave both design systems alone."
-4. **Never rewrite a DESIGN.md in this phase.** It is owned downstream. If the brand
+   `node_modules`, `dist`, `build`, and `vendor`. These are *candidates*, not yet
+   expressions of this brand.
+3. **Attribute each candidate** by reading its `brand` frontmatter field and
+   resolving that relative path. It belongs to this brand only if the path points
+   at this file. A repository can hold a `DESIGN.md` for a nested sub-brand, an
+   example or fixture, or one linked to a different brand entirely. A candidate
+   with no `brand` field is unlinked: you may infer the nearest ancestor
+   `brand.md`, but report it as an inference.
+4. **Report** what you found before proceeding, keeping the three groups apart:
+   "Found a master brand.md for Acme at the project root. Two design systems link
+   to it: website/DESIGN.md and product/DESIGN.md. One is unlinked and probably
+   belongs to it by location: docs/DESIGN.md (inferred). One links to
+   cloud/brand.md and is out of scope. I will generate a product-level brand.md
+   that inherits from the master and leave every design system alone."
+5. **Never rewrite a DESIGN.md in this phase.** It is owned downstream. If the brand
    you are about to write would contradict one, note it and raise it in Phase 5.
 
 When generating a product brand:
 - The parent's layers are your foundation
 - Generate a **sparse file**, only the sections where the product diverges
-- The parent's Guardrails always apply. You can tighten them, not loosen them
-- Accessibility commitments always apply and can only be raised
+- The parent's Guardrails apply at every architecture except `independent`, where
+  the child owns its own. Where they apply you can tighten them, not loosen them
+- Accessibility commitments always apply, at every architecture including
+  `independent`, and can only be raised
 - Ask which architecture fits: `branded-house`, `endorsed`, `sub-brand`, or
   `independent`
 
