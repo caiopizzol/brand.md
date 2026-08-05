@@ -2,7 +2,7 @@
 version: alpha
 name: Marginalia Journal
 description: Visual system for the public marketing and writing site.
-brand: ../brand.md
+brand: ../BRAND.md
 colors:
   primary: "#1B1A17"
   secondary: "#B4AEA2"
@@ -87,7 +87,7 @@ components:
 
 ## Overview
 
-This design system expresses the [Marginalia brand](../brand.md) for the public
+This design system expresses the [Marginalia brand](../BRAND.md) for the public
 site: the homepage, the essays, and the pricing and about pages.
 
 The premise is **an independent literary journal.** Not a software marketing site

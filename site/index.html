@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>brand.md — An open standard for brand identity</title>
-<meta name="description" content="brand.md is a file that lives in your project root and tells AI tools how your brand looks, sounds, and behaves.">
-<meta property="og:title" content="brand.md — An open standard for brand identity">
-<meta property="og:description" content="Like AGENTS.md for coding agents, brand.md gives AI tools your brand context.">
+<title>BRAND.md: An open standard for brand identity</title>
+<meta name="description" content="BRAND.md is a file that lives in your project root and tells AI tools how your brand looks, sounds, and behaves.">
+<meta property="og:title" content="BRAND.md: An open standard for brand identity">
+<meta property="og:description" content="Like AGENTS.md for coding agents, BRAND.md gives AI tools your brand context.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://thebrand.md">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,17 +19,17 @@
 <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-<span style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0">brand.md (thebrand.md) is an open standard for brand identity files. A single markdown file with YAML frontmatter that replaces 50-page brand guides. It has four layers: Strategy (audience, positioning, personality, references, promise, guardrails), Voice (identity, taglines, manifesto, message pillars, phrases, vocabulary, tonal rules, social bios), Visual (approved core colors, typefaces, logo invariants, imagery territory, art direction), and optional Governance (naming, claims, accessibility commitments). The Visual layer holds approved identity primitives only; the applied visual system (design tokens, ramps, semantic roles, type scales, layout, components, motion) belongs in a DESIGN.md, and one brand can have several, one per surface. Supports hierarchy: one master brand with product brands that inherit and override selectively (branded-house, endorsed, sub-brand, independent architectures). Available as a Claude Code plugin: install via /plugin marketplace add caiopizzol/brand.md, then use /brand to generate a brand.md for any project. The plugin researches your market, interviews you, and produces a complete brand identity. MIT licensed. Spec at thebrand.md. Source at github.com/caiopizzol/brand.md. Created by Caio Pizzol (caiopizzol.com), Head of DX at SuperDoc.</span>
+<span style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0">BRAND.md (thebrand.md) is an open standard for brand identity files. A single markdown file with YAML frontmatter that replaces 50-page brand guides. It has four layers: Strategy (audience, positioning, personality, references, promise, guardrails), Voice (identity, taglines, manifesto, message pillars, phrases, vocabulary, tonal rules, social bios), Visual (approved core colors, typefaces, logo invariants, imagery territory, art direction), and optional Governance (naming, claims, accessibility commitments). The Visual layer holds approved identity primitives only; the applied visual system (design tokens, ramps, semantic roles, type scales, layout, components, motion) belongs in a DESIGN.md, and one brand can have several, one per surface. Supports hierarchy: one master brand with product brands that inherit and override selectively (branded-house, endorsed, sub-brand, independent architectures). Available as a Claude Code plugin: install via /plugin marketplace add caiopizzol/brand.md, then use /brand to generate a BRAND.md for any project. The plugin researches your market, interviews you, and produces a complete brand identity. MIT licensed. Spec at thebrand.md. Source at github.com/caiopizzol/brand.md. Created by Caio Pizzol (caiopizzol.com), Head of DX at SuperDoc.</span>
 
 <!-- Banner -->
 <div class="banner">
   <span class="banner-tag">v0.3</span>
-  Spec update: brand.md now defines its boundary with DESIGN.md. One identity, many surfaces. <a href="#design">Read more &rarr;</a>
+  Spec update: BRAND.md now defines its boundary with DESIGN.md. One identity, many surfaces. <a href="#design">Read more &rarr;</a>
 </div>
 
 <!-- Nav -->
 <nav class="nav">
-  <a class="nav-logo" href="/"><strong>brand</strong>.md</a>
+  <a class="nav-logo" href="/"><strong>BRAND</strong>.md</a>
   <div class="nav-right">
     <a class="nav-link" href="#example">Example</a>
     <a class="nav-link" href="#hierarchy">Hierarchy</a>
@@ -56,7 +56,7 @@
     Every AI agent writing copy, generating social posts, or designing pages has <strong>zero brand context</strong>.
     You paste guidelines into every prompt, or you get generic output.<br><br>
     Like <code>AGENTS.md</code> gives coding agents instructions, and <code>llms.txt</code> gives LLMs website context,
-    <code>brand.md</code> gives any tool the brand context it needs to stay on-brand.
+    <code>BRAND.md</code> gives any tool the brand context it needs to stay on-brand.
   </p>
 </section>
 
@@ -70,7 +70,7 @@
       <div class="td r"></div>
       <div class="td y"></div>
       <div class="td g"></div>
-      <span class="terminal-filename">brand.md</span>
+      <span class="terminal-filename">BRAND.md</span>
     </div>
     <div class="terminal-body"><span class="c">---</span>
 <span class="k">name</span>: <span class="s">"Acme"</span>
@@ -179,7 +179,7 @@ If it sounds like marketing, rewrite it.
 <section id="hierarchy">
   <div class="section-label">Hierarchy</div>
   <div class="section-title">One brand, many products</div>
-  <div class="section-sub">Like CLAUDE.md, brand.md supports directory-based hierarchy. Product brands inherit from the master brand and only define what's different.</div>
+  <div class="section-sub">Like CLAUDE.md, BRAND.md supports directory-based hierarchy. Product brands inherit from the master brand and only define what's different.</div>
   <div class="terminal-card">
     <div class="terminal-header">
       <div class="td r"></div>
@@ -188,11 +188,11 @@ If it sounds like marketing, rewrite it.
       <span class="terminal-filename">directory tree</span>
     </div>
     <div class="terminal-body"><span class="h2">acme/</span>
-├── <span class="k">brand.md</span>              <span class="c">← master brand (Acme Corp)</span>
+├── <span class="k">BRAND.md</span>              <span class="c">← master brand (Acme Corp)</span>
 ├── cloud/
-│   └── <span class="k">brand.md</span>          <span class="c">← product (Acme Cloud)</span>
+│   └── <span class="k">BRAND.md</span>          <span class="c">← product (Acme Cloud)</span>
 └── analytics/
-    └── <span class="k">brand.md</span>          <span class="c">← product (Acme Analytics)</span></div>
+    └── <span class="k">BRAND.md</span>          <span class="c">← product (Acme Analytics)</span></div>
   </div>
 
   <div class="arch-grid">
@@ -235,7 +235,7 @@ If it sounds like marketing, rewrite it.
 <section id="design">
   <div class="section-label">Boundary</div>
   <div class="section-title">One identity, many surfaces</div>
-  <div class="section-sub">brand.md owns durable identity. DESIGN.md owns a self-contained visual system for one surface.</div>
+  <div class="section-sub">BRAND.md owns durable identity. DESIGN.md owns a self-contained visual system for one surface.</div>
   <div class="terminal-card">
     <div class="terminal-header">
       <div class="td r"></div>
@@ -243,7 +243,7 @@ If it sounds like marketing, rewrite it.
       <div class="td g"></div>
       <span class="terminal-filename">acme/</span>
     </div>
-    <div class="terminal-body"><span class="k">brand.md</span>                      <span class="c">one identity</span>
+    <div class="terminal-body"><span class="k">BRAND.md</span>                      <span class="c">one identity</span>
 ├── website/<span class="k">DESIGN.md</span>         <span class="c">an independent literary journal</span>
 ├── product/<span class="k">DESIGN.md</span>         <span class="c">a research archive workstation</span>
 └── decks/<span class="k">DESIGN.md</span>           <span class="c">a museum exhibition catalog</span></div>
@@ -252,11 +252,11 @@ If it sounds like marketing, rewrite it.
     The same identity legitimately reads differently as a marketing site, a product
     interface, and a printed document. That is why the brand file cannot own the
     design system.<br><br>
-    <strong>If it should survive a complete visual redesign, it belongs in brand.md.
+    <strong>If it should survive a complete visual redesign, it belongs in BRAND.md.
     If it could change during that redesign without repositioning the company, it
     belongs in DESIGN.md.</strong><br><br>
     The dependency runs one way. A <code>DESIGN.md</code> declares
-    <code>brand: ../brand.md</code>. brand.md does not track its designs.
+    <code>brand: ../BRAND.md</code>. BRAND.md does not track its designs.
     <a href="https://github.com/caiopizzol/brand.md/blob/main/spec/design-md-integration.md" style="color: var(--gray-300); text-underline-offset: 3px;">Read the contract &rarr;</a>
   </div>
 </section>
@@ -265,12 +265,12 @@ If it sounds like marketing, rewrite it.
 <section id="install">
   <div class="section-label">Generate one</div>
   <div class="section-title">Three commands</div>
-  <div class="section-sub">The Claude Code plugin researches your market, interviews you, and generates a complete brand.md.</div>
+  <div class="section-sub">The Claude Code plugin researches your market, interviews you, and generates a complete BRAND.md.</div>
   <div class="steps-grid">
     <div class="step-card">
       <div class="step-num">01</div>
       <div class="step-title">Add marketplace</div>
-      <div class="step-desc">Add the brand.md marketplace to Claude Code.</div>
+      <div class="step-desc">Add the BRAND.md marketplace to Claude Code.</div>
       <div class="step-code">/plugin marketplace add caiopizzol/brand.md</div>
     </div>
     <div class="step-card">
@@ -282,7 +282,7 @@ If it sounds like marketing, rewrite it.
     <div class="step-card">
       <div class="step-num">03</div>
       <div class="step-title">Run it</div>
-      <div class="step-desc">The skill researches competitors, interviews you, and generates your brand.md.</div>
+      <div class="step-desc">The skill researches competitors, interviews you, and generates your BRAND.md.</div>
       <div class="step-code">/brand-md:brand</div>
     </div>
   </div>

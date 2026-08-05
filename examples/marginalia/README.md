@@ -8,7 +8,7 @@ that actually validate.
 
 ```
 marginalia/
-├── brand.md              identity: strategy, voice, primitives, governance
+├── BRAND.md              identity: strategy, voice, primitives, governance
 ├── website/DESIGN.md     premise: an independent literary journal
 └── product/DESIGN.md     premise: a research archive workstation
 ```
@@ -32,10 +32,10 @@ mapping table, which is what makes the duplication auditable rather than acciden
 
 **Inverted grounds.** Limestone is the page background on the site and the
 application chrome in the product, with white inverted between them. Both are
-correct, and that is the reason role assignment cannot live in `brand.md`.
+correct, and that is the reason role assignment cannot live in `BRAND.md`.
 
-**A one-way link.** Each `DESIGN.md` declares `brand: ../brand.md` in frontmatter
-and repeats it in the Overview prose. `brand.md` does not list its designs.
+**A one-way link.** Each `DESIGN.md` declares `brand: ../BRAND.md` in frontmatter
+and repeats it in the Overview prose. `BRAND.md` does not list its designs.
 
 ## Validating
 
@@ -46,6 +46,6 @@ npx -p @google/design.md designmd lint examples/marginalia/product/DESIGN.md
 
 Both report zero errors and zero warnings against `@google/design.md` 0.4.0.
 
-`brand.md` has no linter yet, so `examples/marginalia/brand.md` is validated by
+`BRAND.md` has no linter yet, so `examples/marginalia/BRAND.md` is validated by
 review only. It is a complete `specVersion: "0.3.0"` file with every required
 section, and it doubles as the reference for what 0.3 asks for.

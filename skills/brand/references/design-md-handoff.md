@@ -1,6 +1,6 @@
-# Design handoff: brand.md to DESIGN.md
+# Design handoff: BRAND.md to DESIGN.md
 
-Use this checklist only after the user has approved a `brand.md` and requested a
+Use this checklist only after the user has approved a `BRAND.md` and requested a
 `DESIGN.md` for a named surface. The full ownership contract is
 [`spec/design-md-integration.md`](../../../spec/design-md-integration.md).
 
@@ -57,10 +57,10 @@ Overview -> Colors -> Typography -> Layout -> Elevation & Depth
 Add a scalar path in DESIGN.md frontmatter and repeat the relationship in Overview:
 
 ```yaml
-brand: ../brand.md
+brand: ../BRAND.md
 ```
 
-Do not add a reverse list to `brand.md` or a redundant `scope` field.
+Do not add a reverse list to `BRAND.md` or a redundant `scope` field.
 
 ## 5. Lint and review alignment
 
@@ -79,7 +79,7 @@ Fix every error and warning, or explain any accepted warning. Then report:
 - contradictions that require human approval.
 
 The linter validates the document, not the rendered product or its consistency with
-`brand.md`. Never describe clean lint as visual or cross-file validation.
+`BRAND.md`. Never describe clean lint as visual or cross-file validation.
 
 ## Conflict rules
 
@@ -89,5 +89,5 @@ The linter validates the document, not the rendered product or its consistency w
 - A different value with the same brand meaning must be reported, not reconciled.
 - A prohibited pattern must be reported.
 
-Never edit `brand.md` merely to make a design system pass. If the approved brand
+Never edit `BRAND.md` merely to make a design system pass. If the approved brand
 needs to change, handle that as a separate decision.
