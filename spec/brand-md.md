@@ -58,13 +58,26 @@ language: en
 | `tagline` | Yes | Primary tagline, the one-line brand signature |
 | `version` | Yes | Integer, starts at 1, increments when this file's content is revised |
 | `language` | Yes | Primary language: `en` or `pt-BR` |
-| `specVersion` | No | Version of this specification the file targets. Absent means `0.2.0` |
+| `specVersion` | No | Version of this specification the file targets, as exact `MAJOR.MINOR.PATCH`. Absent means `0.2.0` |
 | `type` | No | `master` (default), `product`, or `sub-brand` |
 | `architecture` | No | `branded-house`, `endorsed`, `sub-brand`, or `independent` |
 
 **`version` vs `specVersion`.** These answer different questions. `version` is the revision number of this particular brand identity (bump it when the brand changes). `specVersion` is the version of the format the file is written against (bump it when migrating to a newer spec). A file can be at `version: 7` and `specVersion: "0.3.0"` at the same time.
 
 **`specVersion` gates required sections.** A file declaring `specVersion: "0.3.0"` is validated against the requirements in this document. A file with no `specVersion` is treated as `0.2.0` and keeps its original requirements, so no existing file becomes invalid when the spec adds a required section. See [Versioning](#versioning).
+
+Because this field decides which rules apply, its value has to resolve unambiguously. The value must be the exact three-part form `MAJOR.MINOR.PATCH`, and tools resolve it as follows:
+
+| Value | Resolution |
+|---|---|
+| Absent | Validate as `0.2.0`. The only implicit case, and the reason existing files stay valid |
+| A version the tool knows | Validate against that version |
+| Unknown, same major, lower than the newest the tool knows | Validate against the closest known version at or below it |
+| Unknown, same major, higher than the newest the tool knows | Validate against the newest known version, and report that the file targets a newer spec |
+| A higher major than the tool knows | Do not validate. Report it as unsupported |
+| Not the exact `MAJOR.MINOR.PATCH` form (`0.3`, `0.03.0`, `v0.3.0`, `latest`) | Error. Report the malformed value |
+
+**A present-but-unrecognized value must never silently fall back to `0.2.0`.** That is the one behaviour this table exists to forbid. A file that means to be 0.3 but typos the version would otherwise be quietly validated under the older, looser rules and could ship missing a section 0.3 requires, with nothing reported. Absent means 0.2. Malformed means say so.
 
 **`type`** declares what this file represents. `master` is the root brand (the company itself). `product` is a distinct product within the company. `sub-brand` is an extension closer to the parent than a standalone product.
 
@@ -697,7 +710,7 @@ The mental model: brand.md inherits like CSS. The master brand is the base style
 
 `version` is an integer that starts at 1. Increment it when the brand identity in this file is revised. This allows tools to detect when a brand has been updated.
 
-`specVersion` records which version of this specification the file targets. Omit it and the file is treated as `0.2.0`.
+`specVersion` records which version of this specification the file targets, as exact `MAJOR.MINOR.PATCH`. Omit it and the file is treated as `0.2.0`. A value that is present but malformed or from an unsupported major is an error, never a silent fallback. See the resolution table under [Frontmatter](#frontmatter).
 
 ### Specification versioning
 
