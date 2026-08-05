@@ -39,9 +39,12 @@ The full boundary, the link between the two files, and the rules for keeping the
 - **Format:** Markdown with YAML frontmatter
 
 For compatibility, tools must also recognize the legacy lowercase name
-`brand.md` when `BRAND.md` is absent from that directory. If both names exist on
-a case-sensitive file system, report a conflict and stop rather than choosing or
-merging them.
+`brand.md` when `BRAND.md` is absent from that directory. Determine which names
+exist by enumerating the directory and comparing entry names exactly, not by
+probing both paths. On a case-insensitive file system, both probes may resolve to
+one entry and that is not a conflict. If two distinct entries named exactly
+`BRAND.md` and `brand.md` exist, report a conflict and stop rather than choosing
+or merging them.
 
 The file is standard markdown. It renders on GitHub, any editor highlights it, and any markdown parser can process it.
 

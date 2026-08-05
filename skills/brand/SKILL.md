@@ -19,8 +19,10 @@ ramps, semantic roles, type scales, spacing, layout, components, or motion in
 
 Walk from the working directory to the project root and read every applicable
 `BRAND.md`, root to leaf. Accept a legacy lowercase `brand.md` only when no
-`BRAND.md` exists in the same directory. If both exist, report the conflict and
-stop. For a child brand, write only sections that differ from the effective parent.
+`BRAND.md` exists in the same directory. Compare exact directory entry names;
+two successful path probes may still refer to one file on a case-insensitive file
+system. If both spellings are distinct entries, report the conflict and stop. For
+a child brand, write only sections that differ from the effective parent.
 
 Ask which architecture applies: `branded-house`, `endorsed`, `sub-brand`, or
 `independent`. Guardrails inherit unless the child is `independent`; inherited
