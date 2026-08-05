@@ -309,7 +309,7 @@ section {
 /* Three layers grid */
 .layers-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 1px;
   background: var(--border2);
   max-width: 960px;

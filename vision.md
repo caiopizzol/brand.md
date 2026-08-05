@@ -9,22 +9,23 @@ Like `llms.txt` gives LLMs context about a website, and `AGENTS.md` gives AI age
 **Website:** thebrand.md (until brand.md is acquired)
 **Spec:** [spec/brand-md.md](spec/brand-md.md)
 
-## Three layers
+## Four layers
 
 ```
 brand.md
-├── ## Strategy    — why the brand exists, where it stands
-├── ## Voice       — how the brand speaks and writes
-└── ## Visual      — how the brand looks
+├── ## Strategy     why the brand exists, where it stands
+├── ## Voice        how the brand speaks and writes
+├── ## Visual       approved identity primitives and art direction
+└── ## Governance   naming, claims, accessibility commitments (optional)
 ```
 
-Each layer builds on the previous. Strategy informs Voice. Voice + Strategy inform Visual.
+Each layer builds on the previous. Strategy informs Voice. Voice and Strategy inform Visual.
 
 ### Strategy
 
-Positioning, personality, promise, guardrails. The "why" and "who."
+Audience, positioning, personality, references, promise, guardrails. The "why" and "who."
 
-Generated from: founder input + agentic market research.
+Generated from: founder input plus agentic market research.
 
 ### Voice
 
@@ -34,9 +35,17 @@ This layer is the most directly useful for AI agents. Tonal rules are system pro
 
 ### Visual
 
-Colors, typography, photography direction, style.
+Approved identity primitives: core colors, typefaces, logo invariants, imagery territory, art direction.
 
-Everything is text-describable — hex values, font names, mood words. No binary assets. An AI agent reading this layer can generate CSS, Midjourney prompts, or design specs.
+Everything is text-describable. No binary assets. This layer is deliberately narrow: it holds what is approved and invariant, not how a given surface applies it.
+
+It does not contain ramps, semantic roles, type scales, spacing, components, or motion. Those belong to a [`DESIGN.md`](https://github.com/google-labs-code/design.md), and one brand can have several, one per surface.
+
+### Governance
+
+Naming rules, approved claims and their evidence, accessibility commitments. Optional, because a brand may have none of these established yet.
+
+Claims carry a hard rule: an agent may draft candidates, but it must never record an unverified statement as approved.
 
 ## How it's generated
 
@@ -50,27 +59,33 @@ The `/brand` Claude Code skill is the reference generator:
 
 Any AI agent encountering `brand.md` should:
 
-1. Read **frontmatter** for brand name, tagline, language
+1. Read **frontmatter** for brand name, tagline, language, specVersion
 2. Read **Strategy** for context on any decision
 3. Read **Voice > Tonal Rules** as system-prompt-level instructions
-4. Read **Voice > Phrases** as few-shot examples
-5. Read **Visual** when generating CSS, design specs, or UI
+4. Read **Voice > Phrases and Vocabulary** as few-shot examples and required terminology
+5. Read **Governance > Claims** before asserting anything factual in public copy
+6. Read **Visual** for approved primitives and art direction
 
-Each layer can be extracted independently. Writing a blog post? Read Voice. Building a landing page? Read Voice + Visual. Preparing a pitch? Read Strategy + Voice.
+Each layer can be extracted independently. Writing a blog post? Read Voice. Naming a feature? Read Governance and Vocabulary. Preparing a pitch? Read Strategy and Voice.
+
+Building a UI? Read the surface's `DESIGN.md`. When one exists, it is authoritative for concrete visual decisions and `brand.md` is authoritative for meaning, voice, and which primitives are approved. Do not generate CSS from `brand.md` alone.
 
 ## Roadmap
 
 ### Now
-- Spec v0.2 — hierarchy support, product brands, architecture types
-- `/brand` skill — the reference generator, with hierarchy-aware generation
-- Real-world brand.md example from professional deliverables
+- Spec v0.3, the DESIGN.md boundary, audience, references, governance, specVersion gating
+- `/brand` skill, narrowed to identity, with an opt-in design handoff
+- Worked example: one brand, two design systems that both lint clean
 
 ### Next
-- thebrand.md — spec website, examples directory, adoption tracker
-- GitHub repo — open standard, community contributions
-- Integrations — Cursor, Windsurf, and other AI tools reading `brand.md` automatically
+- Real usage across three surfaces of one brand, to learn which primitives actually repeat
+- Upstream addition to the DESIGN.md unknown-content table for frontmatter keys
+- Integrations, other AI tools reading `brand.md` automatically
 
 ### Later
 - `brand.md` domain acquisition (Moldova ccTLD)
-- Toolkit extension — executable templates for social posts, emails, landing pages (separate file or spec extension)
-- Brand consistency checker — tool that reads `brand.md` and audits content against it
+- A brand linter, once 0.3 has been exercised enough to know what is worth checking
+- Cross-file primitive validation with color normalization
+- Verbal consistency checker that audits copy against Voice
+
+Deliberately not on the roadmap: design-system inheritance, and any visual conformance checking. The first needs real examples before it can be designed. The second is an unsolved capability, not something the DESIGN.md linter already covers.
