@@ -1,76 +1,53 @@
-# brand.md — Vision
+# brand.md Vision
 
-## An open standard for brand identity
+## Why it exists
 
-`brand.md` is a file format. It lives in your project root — alongside `README.md`, `CLAUDE.md`, and `AGENTS.md` — and gives AI tools and humans a single source of truth for how a brand looks, sounds, and behaves.
+AI tools routinely create public work without enough brand context. Teams either
+repeat their guidelines in every prompt or accept generic output.
 
-Like `llms.txt` gives LLMs context about a website, and `AGENTS.md` gives AI agents coding instructions, `brand.md` gives any tool the brand context it needs to stay on-brand.
+`brand.md` is an open file format that gives humans and tools one durable source
+for brand strategy, voice, identity primitives, and governance. It lives beside
+files such as `README.md` and `AGENTS.md` and remains readable without proprietary
+software.
 
-**Website:** thebrand.md (until brand.md is acquired)
-**Spec:** [spec/brand-md.md](spec/brand-md.md)
+## Principles
 
-## Three layers
+- **Identity before application.** `brand.md` records decisions that should survive
+  a redesign. A surface-specific `DESIGN.md` owns tokens, layout, components, and
+  motion.
+- **One identity, many expressions.** A brand can inform distinct design systems
+  for products, websites, docs, and presentations.
+- **Useful to agents.** Tonal rules are executable guidance, phrases are examples,
+  and approved claims prevent unsupported assertions.
+- **Sparse inheritance.** Product and sub-brand files state only meaningful
+  differences from their parent.
+- **Evidence over invention.** Research can support proposals, but tools must not
+  invent approval, substantiation, or licensing.
+- **Plain files over platforms.** Markdown and YAML keep the format portable,
+  inspectable, and easy to adopt.
 
-```
-brand.md
-├── ## Strategy    — why the brand exists, where it stands
-├── ## Voice       — how the brand speaks and writes
-└── ## Visual      — how the brand looks
-```
+## Non-goals
 
-Each layer builds on the previous. Strategy informs Voice. Voice + Strategy inform Visual.
-
-### Strategy
-
-Positioning, personality, promise, guardrails. The "why" and "who."
-
-Generated from: founder input + agentic market research.
-
-### Voice
-
-The verbal identity — tonal rules, phrases, manifesto, social bios.
-
-This layer is the most directly useful for AI agents. Tonal rules are system prompt modifiers. Phrases are few-shot examples. The "We Say / We Never Say" table is a guardrails list.
-
-### Visual
-
-Colors, typography, photography direction, style.
-
-Everything is text-describable — hex values, font names, mood words. No binary assets. An AI agent reading this layer can generate CSS, Midjourney prompts, or design specs.
-
-## How it's generated
-
-The `/brand` Claude Code skill is the reference generator:
-
-1. **Research** — 5-8 web searches to understand the market, competitors, and audience
-2. **Interview** — Conversational founder interview with research-informed defaults
-3. **Generation** — Three-layer output, each section grounded in competitive whitespace
-
-## How tools consume it
-
-Any AI agent encountering `brand.md` should:
-
-1. Read **frontmatter** for brand name, tagline, language
-2. Read **Strategy** for context on any decision
-3. Read **Voice > Tonal Rules** as system-prompt-level instructions
-4. Read **Voice > Phrases** as few-shot examples
-5. Read **Visual** when generating CSS, design specs, or UI
-
-Each layer can be extracted independently. Writing a blog post? Read Voice. Building a landing page? Read Voice + Visual. Preparing a pitch? Read Strategy + Voice.
+- Replacing design systems or storing applied visual decisions
+- Design-system inheritance
+- Claiming that document linting proves rendered visual conformance
+- Adding speculative extension points before real usage requires them
 
 ## Roadmap
 
 ### Now
-- Spec v0.2 — hierarchy support, product brands, architecture types
-- `/brand` skill — the reference generator, with hierarchy-aware generation
-- Real-world brand.md example from professional deliverables
 
-### Next
-- thebrand.md — spec website, examples directory, adoption tracker
-- GitHub repo — open standard, community contributions
-- Integrations — Cursor, Windsurf, and other AI tools reading `brand.md` automatically
+- Exercise spec 0.3 across real brands and multiple surfaces
+- Learn from the opt-in handoff between `brand.md` and `DESIGN.md`
+- Improve integrations as more AI tools consume the format
 
-### Later
-- `brand.md` domain acquisition (Moldova ccTLD)
-- Toolkit extension — executable templates for social posts, emails, landing pages (separate file or spec extension)
-- Brand consistency checker — tool that reads `brand.md` and audits content against it
+### Later, when evidence supports it
+
+- A brand linter for rules worth enforcing
+- Cross-file primitive validation with normalized color formats
+- Verbal consistency checks against Voice
+- An upstream DESIGN.md clarification for unknown frontmatter fields
+
+The [specification](spec/brand-md.md) defines the format. The
+[DESIGN.md integration contract](spec/design-md-integration.md) defines the boundary
+between identity and its surface-specific expression.

@@ -2,14 +2,39 @@
 
 An open standard for brand identity files.
 
-`brand.md` is a file that lives in your project root and tells AI tools how your brand looks, sounds, and behaves. Like `AGENTS.md` gives AI agents coding instructions, `brand.md` gives them brand context.
+`brand.md` lives in a project and gives AI tools durable context about how a brand
+looks, sounds, and behaves. Like `AGENTS.md` provides coding instructions,
+`brand.md` provides brand strategy, voice, approved identity primitives, and
+governance.
 
-## Quick example
+## Install and run
+
+Add the Claude Code marketplace, install the plugin, then invoke the skill:
+
+```text
+/plugin marketplace add caiopizzol/brand.md
+/plugin install brand-md@brand-md
+/brand-md:brand
+```
+
+To test the plugin from a local clone:
+
+```bash
+git clone https://github.com/caiopizzol/brand.md
+claude --plugin-dir ./brand.md
+```
+
+## Example
+
+This abbreviated excerpt is not a conformant file. See the
+[complete Marginalia example](examples/marginalia/brand.md) for every required
+section.
 
 ```markdown
 ---
 name: "Acme"
 tagline: "Build faster, break nothing"
+specVersion: "0.3.0"
 version: 1
 language: en
 ---
@@ -18,135 +43,41 @@ language: en
 
 ## Strategy
 
-### Overview
-Acme is a deployment platform for teams that ship daily...
-
 ### Positioning
 Category: Zero-downtime deployment infrastructure.
-Not a CI/CD pipeline. Not a hosting provider. Not DevOps consulting...
-
-### Personality
-Archetype: The Reliable Engineer...
-
-### Promise
-Ship with confidence. Every time...
-
-### Guardrails
-If it sounds like marketing, rewrite it...
+Not a CI/CD pipeline. Not a hosting provider. Not DevOps consulting.
 
 ## Voice
-
-### Identity
-We are the infrastructure teams trust when downtime isn't an option...
 
 ### Tonal Rules
 - Write like an engineer explaining to another engineer.
 - Never use "revolutionary" or "game-changing."
-- Calm confidence. Always.
-
-| We Say | We Never Say |
-|---|---|
-| "Zero-downtime deploys" | "Seamless cloud solution" |
-
-...
 
 ## Visual
 
-### Colors
-- Primary: #0F172A (deep navy) — headings, UI chrome
-- Accent: #38BDF8 (sky blue) — CTAs, links, highlights
-...
+### Core Colors
+- Deep Navy `#0F172A` (mandatory): the brand's weight and steadiness
+
+### Art Direction
+Visual territory: an aircraft maintenance log. Plain, exact, no ornament.
 ```
 
-## Structure
+The format has four layers: Strategy, Voice, Visual, and optional Governance. It
+also supports sparse product and sub-brand files that inherit from a parent. The
+[specification](spec/brand-md.md) defines all sections, hierarchy rules, and version
+behavior. Files without `specVersion` continue to be interpreted as 0.2.
 
-```
-brand.md
-├── Frontmatter (name, tagline, version, language, type?, architecture?)
-├── ## Strategy
-│   ├── ### Overview
-│   ├── ### Positioning
-│   ├── ### Personality
-│   ├── ### Promise
-│   └── ### Guardrails
-├── ## Voice
-│   ├── ### Identity
-│   ├── ### Tagline & Slogans
-│   ├── ### Manifesto (optional)
-│   ├── ### Message Pillars
-│   ├── ### Phrases
-│   ├── ### Social Bios (optional)
-│   └── ### Tonal Rules
-└── ## Visual
-    ├── ### Colors
-    ├── ### Typography
-    ├── ### Photography (optional)
-    └── ### Style (optional)
-```
+## Relationship to DESIGN.md
 
-## Hierarchy
+`brand.md` owns identity that should survive a complete visual redesign.
+[`DESIGN.md`](https://github.com/google-labs-code/design.md) owns the applied visual
+system for one surface, including tokens, type scales, layout, components, and
+motion.
 
-Like `CLAUDE.md`, `brand.md` supports directory-based hierarchy. A master brand in the project root cascades down to product brands in subdirectories.
-
-```
-company/
-├── brand.md                    ← master brand (Acme Corp)
-├── cloud/
-│   └── brand.md                ← product brand (Acme Cloud)
-└── analytics/
-    └── brand.md                ← product brand (Acme Analytics)
-```
-
-Product brands are sparse — they only define sections where they diverge. Missing sections inherit from the parent. Guardrails always cascade down.
-
-Four architecture types control how much a product inherits:
-
-| Architecture | Coupling | Example |
-|---|---|---|
-| `branded-house` | Tightest | Google → Google Maps |
-| `endorsed` | Parent visible | Marriott → Courtyard by Marriott |
-| `sub-brand` | Shared DNA | Apple → iPhone |
-| `independent` | Loosest | P&G → Tide |
-
-See [spec/brand-md.md](spec/brand-md.md) for the full hierarchy specification.
-
-## Generate one
-
-### Install
-
-Add the marketplace and install the plugin:
-
-```
-/plugin marketplace add thebrandmd/brand.md
-/plugin install brand-md@brand-md
-```
-
-### Run it
-
-```
-/brand-md:brand
-```
-
-The skill researches your market, interviews you, and generates a complete `brand.md`.
-
-### Or test locally
-
-```bash
-git clone https://github.com/thebrandmd/brand.md
-claude --plugin-dir ./brand.md
-```
-
-Then run `/brand-md:brand` inside Claude Code.
-
-## Spec
-
-Full specification: [spec/brand-md.md](spec/brand-md.md)
-
-## Why brand.md?
-
-Every AI agent writing copy, generating social posts, designing pages, or creating marketing assets currently has **zero brand context**. You either paste brand guidelines into every prompt, or you get generic output.
-
-`brand.md` fixes this. One file, one location, every tool reads it.
+One brand can inform several separate design systems. Each `DESIGN.md` points to
+its brand with `brand: ../brand.md`; the brand file does not maintain a reverse
+list. Read the [integration contract](spec/design-md-integration.md) or explore the
+[worked example](examples/marginalia).
 
 ## License
 

@@ -19,12 +19,12 @@
 <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-<span style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0">brand.md (thebrand.md) is an open standard for brand identity files. A single markdown file with YAML frontmatter that replaces 50-page brand guides. It has three layers: Strategy (positioning, audience, personality, promise, guardrails), Voice (identity, taglines, manifesto, message pillars, tonal rules, social bios), and Visual (colors, typography, photography, design style). Supports hierarchy — one master brand with product brands that inherit and override selectively (branded-house, endorsed, sub-brand, independent architectures). Available as a Claude Code plugin: install via /install-plugin thebrandmd/brand.md, then use /brand to generate a brand.md for any project. The plugin researches your market, interviews you, and produces a complete brand identity. MIT licensed. Spec at thebrand.md. Source at github.com/thebrandmd/brand.md. Created by Caio Pizzol (caiopizzol.com), Head of DX at SuperDoc.</span>
+<span style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0">brand.md (thebrand.md) is an open standard for brand identity files. A single markdown file with YAML frontmatter that replaces 50-page brand guides. It has four layers: Strategy (audience, positioning, personality, references, promise, guardrails), Voice (identity, taglines, manifesto, message pillars, phrases, vocabulary, tonal rules, social bios), Visual (approved core colors, typefaces, logo invariants, imagery territory, art direction), and optional Governance (naming, claims, accessibility commitments). The Visual layer holds approved identity primitives only; the applied visual system (design tokens, ramps, semantic roles, type scales, layout, components, motion) belongs in a DESIGN.md, and one brand can have several, one per surface. Supports hierarchy: one master brand with product brands that inherit and override selectively (branded-house, endorsed, sub-brand, independent architectures). Available as a Claude Code plugin: install via /plugin marketplace add caiopizzol/brand.md, then use /brand to generate a brand.md for any project. The plugin researches your market, interviews you, and produces a complete brand identity. MIT licensed. Spec at thebrand.md. Source at github.com/caiopizzol/brand.md. Created by Caio Pizzol (caiopizzol.com), Head of DX at SuperDoc.</span>
 
 <!-- Banner -->
 <div class="banner">
-  <span class="banner-tag">v0.2</span>
-  Spec update — brand.md now supports hierarchy. One brand, many products. <a href="#hierarchy">Read more &rarr;</a>
+  <span class="banner-tag">v0.3</span>
+  Spec update: brand.md now defines its boundary with DESIGN.md. One identity, many surfaces. <a href="#design">Read more &rarr;</a>
 </div>
 
 <!-- Nav -->
@@ -34,7 +34,7 @@
     <a class="nav-link" href="#example">Example</a>
     <a class="nav-link" href="#hierarchy">Hierarchy</a>
     <a class="nav-link" href="#spec">Spec</a>
-    <a class="nav-cta" href="https://github.com/thebrandmd/brand.md">GitHub</a>
+    <a class="nav-cta" href="https://github.com/caiopizzol/brand.md">GitHub</a>
   </div>
 </nav>
 
@@ -42,7 +42,7 @@
 <div class="hero">
   <div class="hero-eyebrow">Open Standard</div>
   <h1>Give AI tools your <em>brand context.</em></h1>
-  <p class="hero-sub">A single file in your project root. Strategy, voice, and visual direction — readable by every AI tool.</p>
+  <p class="hero-sub">A single file in your project root. Strategy, voice, and approved identity primitives, readable by every AI tool.</p>
   <div class="hero-actions">
     <a class="hero-btn" href="#install">Install Plugin</a>
     <a class="hero-link" href="#example">See example</a>
@@ -64,7 +64,7 @@
 <section id="example">
   <div class="section-label">What it looks like</div>
   <div class="section-title">A complete brand in one file</div>
-  <div class="section-sub">Markdown with YAML frontmatter. Renders on GitHub. Any editor highlights it. Any AI tool reads it.</div>
+  <div class="section-sub">Markdown with YAML frontmatter. Renders on GitHub. Any editor highlights it. Any AI tool reads it. Abbreviated on purpose: required sections are left out, so the excerpt below is not a conformant file.</div>
   <div class="terminal-card">
     <div class="terminal-header">
       <div class="td r"></div>
@@ -75,6 +75,7 @@
     <div class="terminal-body"><span class="c">---</span>
 <span class="k">name</span>: <span class="s">"Acme"</span>
 <span class="k">tagline</span>: <span class="s">"Build faster, break nothing"</span>
+<span class="k">specVersion</span>: <span class="s">"0.3.0"</span>
 <span class="k">version</span>: <span class="s">1</span>
 <span class="k">language</span>: <span class="s">en</span>
 <span class="c">---</span>
@@ -109,18 +110,18 @@ If it sounds like marketing, rewrite it.
 
 <span class="h2">## Visual</span>
 
-<span class="h2">### Colors</span>
-- Primary: #0F172A (deep navy) — headings, UI chrome
-- Accent: #38BDF8 (sky blue) — CTAs, links, highlights
+<span class="h2">### Core Colors</span>
+- Deep Navy #0F172A (mandatory): weight and steadiness
+- Sky Blue #38BDF8 (mandatory): the one point of energy
 - Avoid: gradients, neon, anything that feels "startup-y"</div>
   </div>
 </section>
 
-<!-- Three Layers -->
+<!-- Four Layers -->
 <section>
   <div class="section-label">Structure</div>
-  <div class="section-title">Three layers</div>
-  <div class="section-sub">Each layer builds on the previous. Strategy informs Voice. Voice and Strategy inform Visual.</div>
+  <div class="section-title">Four layers</div>
+  <div class="section-sub">Each layer builds on the previous. Strategy informs Voice. Voice and Strategy inform Visual. Governance is optional.</div>
   <div class="layers-grid">
     <div class="layer-card">
       <div class="layer-num">01</div>
@@ -128,8 +129,10 @@ If it sounds like marketing, rewrite it.
       <div class="layer-desc">Why the brand exists and where it stands. The foundation everything else builds on.</div>
       <ul class="layer-sections">
         <li>Overview</li>
+        <li>Audience</li>
         <li>Positioning</li>
         <li>Personality</li>
+        <li>References</li>
         <li>Promise</li>
         <li>Guardrails</li>
       </ul>
@@ -143,18 +146,30 @@ If it sounds like marketing, rewrite it.
         <li>Tagline & Slogans</li>
         <li>Message Pillars</li>
         <li>Phrases</li>
+        <li>Vocabulary</li>
         <li>Tonal Rules</li>
       </ul>
     </div>
     <div class="layer-card">
       <div class="layer-num">03</div>
       <div class="layer-title">Visual</div>
-      <div class="layer-desc">How the brand looks. Colors, typography, photography — everything text-describable.</div>
+      <div class="layer-desc">Approved identity primitives. What is invariant, not how one surface applies it.</div>
       <ul class="layer-sections">
-        <li>Colors</li>
-        <li>Typography</li>
-        <li>Photography</li>
-        <li>Style</li>
+        <li>Logo &amp; Marks</li>
+        <li>Core Colors</li>
+        <li>Typefaces</li>
+        <li>Imagery</li>
+        <li>Art Direction</li>
+      </ul>
+    </div>
+    <div class="layer-card">
+      <div class="layer-num">04</div>
+      <div class="layer-title">Governance</div>
+      <div class="layer-desc">What the brand may say and commit to. Optional, and never invented.</div>
+      <ul class="layer-sections">
+        <li>Naming</li>
+        <li>Claims</li>
+        <li>Accessibility</li>
       </ul>
     </div>
   </div>
@@ -216,6 +231,36 @@ If it sounds like marketing, rewrite it.
   </div>
 </section>
 
+<!-- DESIGN.md -->
+<section id="design">
+  <div class="section-label">Boundary</div>
+  <div class="section-title">One identity, many surfaces</div>
+  <div class="section-sub">brand.md owns durable identity. DESIGN.md owns a self-contained visual system for one surface.</div>
+  <div class="terminal-card">
+    <div class="terminal-header">
+      <div class="td r"></div>
+      <div class="td y"></div>
+      <div class="td g"></div>
+      <span class="terminal-filename">acme/</span>
+    </div>
+    <div class="terminal-body"><span class="k">brand.md</span>                      <span class="c">one identity</span>
+├── website/<span class="k">DESIGN.md</span>         <span class="c">an independent literary journal</span>
+├── product/<span class="k">DESIGN.md</span>         <span class="c">a research archive workstation</span>
+└── decks/<span class="k">DESIGN.md</span>           <span class="c">a museum exhibition catalog</span></div>
+  </div>
+  <div class="problem-text" style="margin-top: 40px;">
+    The same identity legitimately reads differently as a marketing site, a product
+    interface, and a printed document. That is why the brand file cannot own the
+    design system.<br><br>
+    <strong>If it should survive a complete visual redesign, it belongs in brand.md.
+    If it could change during that redesign without repositioning the company, it
+    belongs in DESIGN.md.</strong><br><br>
+    The dependency runs one way. A <code>DESIGN.md</code> declares
+    <code>brand: ../brand.md</code>. brand.md does not track its designs.
+    <a href="https://github.com/caiopizzol/brand.md/blob/main/spec/design-md-integration.md" style="color: var(--gray-300); text-underline-offset: 3px;">Read the contract &rarr;</a>
+  </div>
+</section>
+
 <!-- Install -->
 <section id="install">
   <div class="section-label">Generate one</div>
@@ -226,7 +271,7 @@ If it sounds like marketing, rewrite it.
       <div class="step-num">01</div>
       <div class="step-title">Add marketplace</div>
       <div class="step-desc">Add the brand.md marketplace to Claude Code.</div>
-      <div class="step-code">/plugin marketplace add thebrandmd/brand.md</div>
+      <div class="step-code">/plugin marketplace add caiopizzol/brand.md</div>
     </div>
     <div class="step-card">
       <div class="step-num">02</div>
@@ -246,49 +291,17 @@ If it sounds like marketing, rewrite it.
 <!-- Spec -->
 <section id="spec">
   <div class="section-label">Specification</div>
-  <div class="section-title">16 sections. 3 layers.</div>
-  <div class="section-sub">12 required, 4 optional. <a href="https://github.com/thebrandmd/brand.md/blob/main/spec/brand-md.md" style="color: var(--gray-300); text-underline-offset: 3px;">Read the full spec &rarr;</a></div>
-
-  <div class="spec-table">
-    <div class="spec-group-label">Frontmatter</div>
-    <div class="spec-row"><span class="spec-name">name</span><span class="spec-desc">Brand name as it should appear everywhere</span><span class="spec-badge">required</span></div>
-    <div class="spec-row"><span class="spec-name">tagline</span><span class="spec-desc">Primary one-line brand signature</span><span class="spec-badge">required</span></div>
-    <div class="spec-row"><span class="spec-name">version</span><span class="spec-desc">Integer, starts at 1</span><span class="spec-badge">required</span></div>
-    <div class="spec-row"><span class="spec-name">language</span><span class="spec-desc">en or pt-BR</span><span class="spec-badge">required</span></div>
-    <div class="spec-row"><span class="spec-name">type</span><span class="spec-desc">master, product, or sub-brand</span><span class="spec-badge optional">optional</span></div>
-    <div class="spec-row"><span class="spec-name">architecture</span><span class="spec-desc">branded-house, endorsed, sub-brand, independent</span><span class="spec-badge optional">optional</span></div>
-
-    <div class="spec-group-label">Strategy</div>
-    <div class="spec-row"><span class="spec-name">Overview</span><span class="spec-desc">What, origin, deep problem, transformation</span><span class="spec-badge">required</span></div>
-    <div class="spec-row"><span class="spec-name">Positioning</span><span class="spec-desc">Category, NOT-list, differentials, territory</span><span class="spec-badge">required</span></div>
-    <div class="spec-row"><span class="spec-name">Personality</span><span class="spec-desc">Archetype, attributes, IS / IS NOT</span><span class="spec-badge">required</span></div>
-    <div class="spec-row"><span class="spec-name">Promise</span><span class="spec-desc">Core promise, base message, synthesizing phrase</span><span class="spec-badge">required</span></div>
-    <div class="spec-row"><span class="spec-name">Guardrails</span><span class="spec-desc">Tone summary, boundaries, litmus test</span><span class="spec-badge">required</span></div>
-
-    <div class="spec-group-label">Voice</div>
-    <div class="spec-row"><span class="spec-name">Identity</span><span class="spec-desc">Who we are statement + essence</span><span class="spec-badge">required</span></div>
-    <div class="spec-row"><span class="spec-name">Tagline & Slogans</span><span class="spec-desc">Primary + alternatives + slogan options</span><span class="spec-badge">required</span></div>
-    <div class="spec-row"><span class="spec-name">Manifesto</span><span class="spec-desc">8-12 paragraphs, poetic / declarative</span><span class="spec-badge optional">optional</span></div>
-    <div class="spec-row"><span class="spec-name">Message Pillars</span><span class="spec-desc">4-6 themes with key statements</span><span class="spec-badge">required</span></div>
-    <div class="spec-row"><span class="spec-name">Phrases</span><span class="spec-desc">5-8 ownable one-liners</span><span class="spec-badge">required</span></div>
-    <div class="spec-row"><span class="spec-name">Social Bios</span><span class="spec-desc">LinkedIn, Instagram, X, Website</span><span class="spec-badge optional">optional</span></div>
-    <div class="spec-row"><span class="spec-name">Tonal Rules</span><span class="spec-desc">Rules + boundaries + We Say / Never Say</span><span class="spec-badge">required</span></div>
-
-    <div class="spec-group-label">Visual</div>
-    <div class="spec-row"><span class="spec-name">Colors</span><span class="spec-desc">Hex values + usage rules + avoid</span><span class="spec-badge">required</span></div>
-    <div class="spec-row"><span class="spec-name">Typography</span><span class="spec-desc">Display, body, mono fonts + usage</span><span class="spec-badge">required</span></div>
-    <div class="spec-row"><span class="spec-name">Photography</span><span class="spec-desc">Mood, subjects, avoid</span><span class="spec-badge optional">optional</span></div>
-    <div class="spec-row"><span class="spec-name">Style</span><span class="spec-desc">Design keywords, references, direction</span><span class="spec-badge optional">optional</span></div>
-  </div>
+  <div class="section-title">23 sections. 4 layers.</div>
+  <div class="section-sub">15 required, 8 optional. <a href="https://github.com/caiopizzol/brand.md/blob/main/spec/brand-md.md" style="color: var(--gray-300); text-underline-offset: 3px;">Read the full spec &rarr;</a></div>
 </section>
 
 <!-- Footer -->
 <footer>
   <div class="footer-left">MIT License. An open standard for brand identity.</div>
   <div class="footer-links">
-    <a href="https://github.com/thebrandmd/brand.md">GitHub</a>
-    <a href="https://github.com/thebrandmd/brand.md/blob/main/spec/brand-md.md">Spec</a>
-    <a href="https://github.com/thebrandmd/brand.md/issues">Issues</a>
+    <a href="https://github.com/caiopizzol/brand.md">GitHub</a>
+    <a href="https://github.com/caiopizzol/brand.md/blob/main/spec/brand-md.md">Spec</a>
+    <a href="https://github.com/caiopizzol/brand.md/issues">Issues</a>
   </div>
 </footer>
 
