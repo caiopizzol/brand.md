@@ -1,200 +1,106 @@
 ---
 name: brand
-description: Create or update a brand.md file: brand strategy, audience, positioning, personality, messaging, voice, approved visual primitives, naming, claims, and sub-brand inheritance. Use for verbal and strategic brand identity. For the applied visual system (design tokens, palettes, type scales, layout, components, motion) this skill hands off to a DESIGN.md rather than writing one into brand.md.
+description: Create or update brand.md files for strategy, audience, positioning, personality, messaging, voice, approved identity primitives, governance, and sub-brand inheritance. Use for durable verbal and strategic identity. Hand applied visual systems such as tokens, layout, components, and motion to DESIGN.md.
 ---
 
 # brand.md Generator
 
-Generate a `brand.md` file, the open standard for brand identity, at spec version
-0.3.0. Full format: [`spec/brand-md.md`](../../spec/brand-md.md).
+Create or update `brand.md` at spec version 0.3.0. The format and section
+requirements are defined in [`spec/brand-md.md`](../../spec/brand-md.md).
 
-## Scope
+`brand.md` owns identity that should survive a complete visual redesign.
+`DESIGN.md` owns how that identity is applied to a particular surface. Never put
+ramps, semantic roles, type scales, spacing, layout, components, or motion in
+`brand.md`.
 
-This skill produces durable identity: the things that should survive a complete
-visual redesign without repositioning the company.
+## Workflow
 
-**In scope:** strategy, audience, positioning, personality, references, promise,
-guardrails, voice, messaging, vocabulary, tonal rules, approved visual primitives
-(identity colors, typefaces, logo invariants, imagery territory, art direction),
-and governance (naming, claims, accessibility commitments).
+### 1. Resolve existing context
 
-**Out of scope:** color ramps, semantic color roles, hover and focus states, type
-scales, spacing, layout, shape language, elevation, components, motion, UI
-iconography, responsive behavior. Those belong in a `DESIGN.md`, and Phase 4 hands
-off to one.
+Walk from the working directory to the project root and read every applicable
+`brand.md`, root to leaf. For a child brand, write only sections that differ from
+the effective parent.
 
-Never write an applied design system into `brand.md`. The failure this boundary
-prevents is two files *independently* defining the applied palette and its roles.
-Mirroring an approved primitive downstream at its exact value is expected and
-required; inventing a second set of roles, ramps, and states is not.
+Ask which architecture applies: `branded-house`, `endorsed`, `sub-brand`, or
+`independent`. Guardrails inherit unless the child is `independent`; inherited
+guardrails may be tightened but not loosened. Accessibility commitments always
+inherit and may only be raised.
 
-## Process
+Discover nearby `DESIGN.md` paths, skipping generated and dependency directories.
+Read and attribute them only when materially updating a brand, checking alignment,
+or performing the design handoff. A design belongs to this brand when its `brand`
+frontmatter resolves to this file. Treat location-based attribution as an
+inference.
 
-### Phase 0: Discovery
+### 2. Gather evidence
 
-Before anything else, survey what already exists.
+Research only what is missing. Relevant sources may include the product, direct
+competitors, audience discussions, reviews, and references outside the category.
+Use enough evidence to understand the category, audience, competitive pattern,
+and credible whitespace. Do not satisfy a fixed search quota.
 
-1. **Walk up** from the working directory to the project root, collecting
-   `brand.md` files. If a parent exists, read it fully. It is the master brand and
-   the new file will be a product or sub-brand that inherits from it.
-2. **Walk down** from the project root for `DESIGN.md` files, skipping
-   `node_modules`, `dist`, `build`, and `vendor`. These are *candidates*, not yet
-   expressions of this brand.
-3. **Attribute each candidate** by reading its `brand` frontmatter field and
-   resolving that relative path. It belongs to this brand only if the path points
-   at this file. A repository can hold a `DESIGN.md` for a nested sub-brand, an
-   example or fixture, or one linked to a different brand entirely. A candidate
-   with no `brand` field is unlinked: you may infer the nearest ancestor
-   `brand.md`, but report it as an inference.
-4. **Report** what you found before proceeding, keeping the three groups apart:
-   "Found a master brand.md for Acme at the project root. Two design systems link
-   to it: website/DESIGN.md and product/DESIGN.md. One is unlinked and probably
-   belongs to it by location: docs/DESIGN.md (inferred). One links to
-   cloud/brand.md and is out of scope. I will generate a product-level brand.md
-   that inherits from the master and leave every design system alone."
-5. **Never rewrite a DESIGN.md in this phase.** It is owned downstream. If the brand
-   you are about to write would contradict one, note it and raise it in Phase 5.
+Derive what the evidence supports. Ask only unresolved decisions, propose useful
+defaults, skip inherited or irrelevant sections, and ask in small clusters. Never
+invent approved claims, verified licenses, or approved colors.
 
-When generating a product brand:
-- The parent's layers are your foundation
-- Generate a **sparse file**, only the sections where the product diverges
-- The parent's Guardrails apply at every architecture except `independent`, where
-  the child owns its own. Where they apply you can tighten them, not loosen them
-- Accessibility commitments always apply, at every architecture including
-  `independent`, and can only be raised
-- Ask which architecture fits: `branded-house`, `endorsed`, `sub-brand`, or
-  `independent`
+At minimum, resolve:
 
-### Phase 1: Research
+- the brand, product, audience, category, and relationship to any parent;
+- positioning, explicit negations, personality, references, and anti-references;
+- voice, messaging, and identity guardrails;
+- approved identity colors, typefaces, logo rules, and art direction;
+- any established naming, claims, or accessibility commitments.
 
-Research the brand independently before asking anything. This is the work a
-strategist does in week one.
+For each reference, record the trait to borrow and the trait not to copy. Ask about
+identity primitives, not design-system roles or styling.
 
-1. **If a URL is provided**, search and scrape to understand what the product
-   actually does, not just the marketing
-2. **Find 3-5 direct competitors** and read their homepages, about pages, and
-   pricing pages, since that is where positioning lives
-3. **Find audience discussions** in forums, threads, and reviews. What do people
-   actually care about, and what frustrates them?
-4. **Identify the market gap.** What pattern do all competitors follow, and where is
-   the whitespace?
-5. **Collect candidate references** from any industry, including non-software ones.
-   These feed a required section, so gather them deliberately rather than as an
-   afterthought.
+### 3. Generate the brand file
 
-Do 5-8 searches from different angles. For product brands, research the product's
-market, not the parent company's.
+Write `specVersion: "0.3.0"` and follow the spec. The required shape is:
 
-### Phase 2: Interview
-
-Present findings and ask the founder to react. This is a hypothesis, not a form. Use
-research to propose defaults they can accept or change.
-
-**Seed:** brand name, one-line description in their words, URL.
-
-**For product brands:** how this relates to the parent, which architecture fits,
-what should be inherited versus different. Skip questions about anything that will
-be inherited.
-
-**Market:** category (be specific), competitors, market gap, what the brand is NOT.
-
-**Audience:** who they are and what they are trying to do, what they already
-believe, what they are skeptical of, and who the brand is explicitly not for.
-
-**Identity:** archetype (offer 2-3), brand attributes, tone words, what the brand
-must communicate that the market is not saying, what it must never communicate.
-
-**References:** propose 2-4 references and 1-3 anti-references from research. For
-each, get agreement on the specific trait to borrow and the trait not to copy. A
-bare list of admired brands is not usable output.
-
-**Visual primitives:** approved colors and their meaning, which are mandatory,
-approved typefaces, and whether licensing has been verified. Ask, do not invent. Do
-not ask about ramps, scales, or component styling.
-
-**Governance:** naming rules, claims the brand can substantiate and the evidence
-behind each, accessibility target. Skip any the founder has not established.
-
-**Founder context:** why they are building this, where it goes in 3 years, reference
-and anti-reference brands.
-
-**Language:** en / pt-BR.
-
-### Phase 3: Generation
-
-Write the file per [`spec/brand-md.md`](../../spec/brand-md.md). Frontmatter carries
-`specVersion: "0.3.0"`.
-
-```
-## Strategy    Overview, Audience, Positioning, Personality,
-               References & Anti-References, Promise, Guardrails
-## Voice       Identity, Tagline & Slogans, Manifesto?, Message Pillars,
-               Phrases, Vocabulary?, Social Bios?, Tonal Rules
-## Visual      Logo & Marks?, Core Colors, Typefaces,
-               Photography & Illustration?, Art Direction
-## Governance? Naming?, Claims?, Accessibility Commitments?
+```text
+Strategy: Overview, Audience, Positioning, Personality,
+          References & Anti-References, Promise, Guardrails
+Voice:    Identity, Tagline & Slogans, Message Pillars, Phrases, Tonal Rules
+Visual:   Core Colors, Typefaces, Art Direction
 ```
 
-Sections marked `?` are optional. Everything else is required at 0.3.
+Optional sections are Manifesto, Vocabulary, Social Bios, Logo & Marks,
+Photography & Illustration, and the Governance layer with Naming, Claims, and
+Accessibility Commitments.
 
-Each layer builds on the one before it. Strategy first, then Voice from Strategy,
-then Visual informed by both.
+Keep identity primitives narrow:
 
-Constraints specific to the narrowed Visual layer:
+- Core Colors contain 2 to 5 approved colors with exact values, meaning, and
+  mandatory or optional status, never surface roles.
+- Typefaces contain families, roles, and fallbacks, not a scale. Mark licensing
+  verified only when it was checked.
+- Art Direction names a concrete visual territory, not a list of adjectives.
+- Claims distinguish approved, evidenced claims from draft candidates.
 
-- **Core Colors:** 2-5 approved colors with name, exact value, meaning, and
-  mandatory or optional status. No primary, secondary, and accent trio is required,
-  so do not invent an accent to fill a slot. No application roles, because "use for
-  CTAs" is a per-surface decision.
-- **Typefaces:** families, roles, and fallbacks only. No sizes, weights, or line
-  heights. Mark licensing verified only if it was actually checked, otherwise write
-  "unverified".
-- **Art Direction:** state visual territory as a concrete object, not a mood. "The
-  reference room of a research library: one ink, generous margins, no ornament" is
-  usable. "Editorial, archival, quietly authoritative" is not.
-- **Claims:** only what a human approved or what has cited evidence. Draft
-  candidates must be labeled drafts. Never record an unverified statement as
-  approved.
+Use [`examples/marginalia/brand.md`](../../examples/marginalia/brand.md) when a
+complete example is useful.
 
-A complete reference file is at
-[`examples/marginalia/brand.md`](../../examples/marginalia/brand.md).
+### 4. Hand off to design only when requested
 
-### Phase 4: Design handoff (opt-in)
+After the user confirms the brand, offer a `DESIGN.md` for a named surface. If they
+accept, read and follow
+[`references/design-md-handoff.md`](references/design-md-handoff.md). Otherwise
+stop. Never add applied design recommendations to `brand.md` as a substitute.
 
-Only after the `brand.md` is written and the user has confirmed it.
+### 5. Report possible downstream drift
 
-Ask whether they want a `DESIGN.md` for a specific surface. If yes, read
-[`references/design-md-handoff.md`](references/design-md-handoff.md) and follow it.
-If no, stop. Do not persist visual system recommendations into `brand.md` as a
-consolation prize.
+After a material brand update, report linked or inferred `DESIGN.md` files that may
+need review and describe the potential conflict. Do not edit them unless the user
+requests the design handoff. This is a review convention, not an automated check.
 
-### Phase 5: Alignment report
+## Non-negotiable checks
 
-If Phase 0 found existing `DESIGN.md` files and this brand changed materially,
-report which ones may now be out of step, and how. Do not edit them.
-
-State plainly that this is a review, not an enforced check. Nothing validates
-brand-to-design consistency automatically today.
-
-## Quality standards
-
-- Every section should read as though a senior strategist wrote it. Never generic.
-- Ground positioning in competitive whitespace, not in what sounds good.
-- The essence is one specific concept, never a word like "quality" or "innovation".
-- Tonal rules must be directly usable as system prompt modifiers.
-- Phrases must be ownable. Swap in a competitor's name and the line should break.
-- References must name the trait to borrow and the trait to avoid.
-- The "what we are not" sections matter as much as the positive ones. They are what
-  prevent drift.
-- Be opinionated. A strategist has a point of view. Do not hedge.
-- Positioning must include explicit negations.
-- The Guardrails litmus test must be one sentence anyone in the org can apply.
-
-## Never
-
-- Never write ramps, roles, type scales, spacing, components, or motion into
-  `brand.md`
-- Never modify a `DESIGN.md` during brand generation
-- Never invent an approved claim, a verified font license, or a color the founder
-  did not approve
-- Never resolve a brand-to-design conflict silently. Report it and ask
+- The output follows the specification and contains no generic filler.
+- Positioning is grounded in evidence and includes explicit negations.
+- Phrases are ownable; replacing the brand name with a competitor should break
+  them.
+- Tonal rules are usable instructions, and guardrails give a practical litmus
+  test.
+- No applied tokens, roles, components, or motion appear in `brand.md`.
+- No brand-to-design conflict is silently resolved.

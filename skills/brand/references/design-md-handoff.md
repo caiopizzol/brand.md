@@ -1,227 +1,93 @@
 # Design handoff: brand.md to DESIGN.md
 
-Read this only when generating or updating a `DESIGN.md` from an approved
-`brand.md`. Full contract: [`spec/design-md-integration.md`](../../../spec/design-md-integration.md).
+Use this checklist only after the user has approved a `brand.md` and requested a
+`DESIGN.md` for a named surface. The full ownership contract is
+[`spec/design-md-integration.md`](../../../spec/design-md-integration.md).
 
-`DESIGN.md` is an open format from Google Labs for describing a visual and
-interaction system to coding agents. It pairs YAML design tokens with prose and
-ships a linter.
+## 1. Confirm the inputs
 
-## Preconditions
+Identify the approved brand, target surface, and target `DESIGN.md`. If the target
+already exists, read it fully and preserve decisions that do not conflict with the
+brand.
 
-1. The `brand.md` exists and the user has confirmed it
-2. The user asked for a `DESIGN.md`, for a named surface
-3. You know which surface: marketing site, product interface, docs, presentations,
-   something else
+Resolve the effective brand root to leaf. A child section overrides its parent and
+a missing section inherits. Guardrails inherit unless the child is `independent`;
+accessibility commitments always inherit. Merge applicable commitments additively
+and never loosen them.
 
-If any of these is missing, stop and ask. Do not generate a design system nobody
-requested.
+## 2. Write a surface-specific premise
 
-## Resolve the brand first
+Synthesize the Overview from the effective brand's audience, personality,
+references, anti-references, and art direction, plus the surface's purpose. Do not
+copy art direction verbatim into every design.
 
-1. Walk up from the target directory, collecting every `brand.md`
-2. Apply them root to leaf. A child's section overrides the parent's; a missing
-   section inherits
-3. Merge Guardrails additively. Merge accessibility commitments additively, and
-   never loosen either
-4. The result is the effective brand. Work from that, not from a single file
+For example, one brand territory can become an independent literary journal for a
+marketing site and a dense research archive workstation for a product. Each is a
+specific expression of the same identity.
 
-If an existing `DESIGN.md` is present at the target path, read it fully first. You
-are updating it, not replacing it, and its existing decisions deserve to survive
-unless they conflict with the brand.
+## 3. Mirror primitives and derive the system
 
-## Ownership
+Copy approved colors and typefaces at their exact values. Use only the subset the
+surface needs. Never change an approved primitive under the same meaning.
 
-Take from the brand, do not reinvent:
-
-- Approved identity colors, at their exact values
-- Approved typefaces, roles, and fallbacks
-- Logo invariants and prohibitions
-- Imagery territory
-- Audience, personality, references and anti-references, art direction
-
-Decide here, because the brand deliberately does not:
-
-- Semantic color roles, ramps, states, contrast pairs
-- Type scale: sizes, weights, line heights, tracking, responsive behavior
-- Layout, spacing, grid
-- Shape language, elevation, motion
-- Components and their states
-- UI iconography
-- Logo placement and responsive treatment on this surface
-- Imagery treatment and cropping
-- Render-level do's and don'ts
-
-## Steps
-
-### 1. Write the premise, do not copy the art direction
-
-The Overview is the most important section. Synthesize a premise specific to this
-surface from the brand's audience, personality, references and anti-references, and
-art direction, plus the medium and the job the surface does.
-
-Never paste the brand's visual territory into every design file. Three surfaces
-would get three identical Overviews and should not.
-
-| Source | Text |
-|---|---|
-| brand.md Art Direction | The reference room of a research library: one ink, generous margins, no ornament. |
-| Marketing site premise | An independent literary journal. Long measure, visible white space, one accent used only in pull quotes. |
-| Product premise | A research archive workstation. Dense, keyboard-first, calm over long sessions, chrome that recedes behind the text. |
-
-State the premise as a concrete object. A named reference carries its own negative
-constraints: a model knows what a lecture handout is and also knows it does not
-glow. Adjectives carry none of that.
-
-### 2. Mirror the primitives
-
-Copy the approved values exactly. Do not adjust, harmonize, or "improve" them.
-
-Use a **subset** if the surface does not need all of them. A presentation system may
-never need every approved color.
-
-Never redefine an approved primitive with a contradictory value under the same
-meaning. A different Vermilion is a brand change and needs a human.
-
-### 3. Name tokens by role, not by brand name
-
-`brand.md` names colors for meaning. `DESIGN.md` names them for the job they do
-here. Token keys must be roles: `primary`, `secondary`, `tertiary`, `neutral`,
-`surface`, `outline`.
-
-A `primary` color is required by the DESIGN.md spec, and the linter warns when it is
-missing. Tokens named `ink` and `vermilion` trip that warning and lose the semantic
-layer.
-
-Record the mapping in the Colors prose so inherited values can be told apart from
-derived ones:
+Name DESIGN.md tokens by their role, such as `primary`, `secondary`, `surface`, or
+`outline`, not by the brand color name. Record what was mirrored and what was
+derived in the Colors prose:
 
 ```markdown
 | Role | Brand color | Value | Origin |
 |---|---|---|---|
-| `primary` | Ink (mandatory) | `#1B1A17` | Mirrored |
-| `tertiary` | Vermilion (mandatory) | `#B8422E` | Mirrored |
+| `primary` | Ink | `#1B1A17` | Mirrored |
 | `secondary` | none | `#5C574E` | Derived from Ink |
 ```
 
-Every declared color should be referenced by at least one component, or the linter
-flags it as orphaned. If the surface does not need an approved color, leave it out
-rather than declaring it unused.
+Derive surface-specific ramps, semantic roles, type scale, layout, spacing, shapes,
+elevation, motion, components, iconography, logo placement, imagery treatment, and
+render-level do's and don'ts. These belong only in `DESIGN.md`.
 
-### 4. Build the system
+Follow the upstream section order:
 
-Derive tokens and prose for each section. Sections must appear in this order, and
-the linter warns when they do not:
-
-```
-Overview → Colors → Typography → Layout → Elevation & Depth
-        → Shapes → Components → Do's and Don'ts
+```text
+Overview -> Colors -> Typography -> Layout -> Elevation & Depth
+         -> Shapes -> Components -> Do's and Don'ts
 ```
 
-Custom sections such as `## Motion`, `## Iconography`, or `## Logo` are permitted
-anywhere and are exempt from the ordering rule.
+## 4. Add the one-way link
 
-Write prose for every section, not just tokens. The tokens are the values; the prose
-is why they exist and how to apply them, and it is what an agent actually reads.
-
-Derive the Do's and Don'ts from the brand's guardrails, anti-references, and this
-surface's premise. Render-level only here. Identity-level prohibitions stay upstream.
-
-### 5. Link back
-
-Add the brand path to frontmatter as a scalar:
+Add a scalar path in DESIGN.md frontmatter and repeat the relationship in Overview:
 
 ```yaml
----
-name: Marginalia Workstation
-description: Visual system for the authenticated reading and annotation workspace.
 brand: ../brand.md
----
 ```
 
-Repeat it in the Overview prose so it survives tools that only read the body:
+Do not add a reverse list to `brand.md` or a redundant `scope` field.
 
-```markdown
-This design system expresses the [Marginalia brand](../brand.md) for the
-authenticated reading workspace.
-```
+## 5. Lint and review alignment
 
-Do not add a reverse link in `brand.md`. One brand has many designs, and a
-maintained list goes stale.
-
-Do not add a `scope` field. The path, `name`, `description`, and Overview already
-identify the surface.
-
-### 6. Lint
-
-```bash
-npx -p @google/design.md designmd lint path/to/DESIGN.md
-```
-
-With Bun:
+Run:
 
 ```bash
 bunx --package @google/design.md designmd lint path/to/DESIGN.md
 ```
 
-Both `design.md` and `designmd` are published bin names and both work on macOS,
-Linux, and Windows. Prefer `designmd`: upstream documents the dot-free alias because
-the `.md` suffix can collide with Windows file associations.
+Fix every error and warning, or explain any accepted warning. Then report:
 
-Fix every error. Fix warnings too, or state why one is being accepted. Common ones:
+- mandatory primitives present or intentionally missing;
+- approved typefaces used;
+- relevant logo and imagery rules preserved;
+- accessibility commitment checked against declared component pairs;
+- contradictions that require human approval.
 
-| Rule | Meaning |
-|---|---|
-| `missing-primary` | No `primary` color. Assign the role |
-| `orphaned-tokens` | Color declared but unreferenced. Use it or drop it |
-| `section-order` | Known sections out of spec order |
-| Contrast findings | A component's text and background pair. Check against the brand's accessibility commitment |
+The linter validates the document, not the rendered product or its consistency with
+`brand.md`. Never describe clean lint as visual or cross-file validation.
 
-The linter validates the document. It does not check a rendered page, CSS output,
-logo misuse, photography, or whether components actually consume their tokens. A
-clean lint is not a claim that the surface looks right.
+## Conflict rules
 
-### 7. Report alignment
+- An unused optional primitive is acceptable.
+- A missing mandatory primitive must be reported.
+- Derived ramps, states, and roles are expected.
+- A different value with the same brand meaning must be reported, not reconciled.
+- A prohibited pattern must be reported.
 
-```
-Brand alignment
-- Mandatory primitives present: Ink yes, Vermilion yes
-- Approved typefaces used: yes (Public Sans, Space Grotesk)
-- Logo prohibitions preserved: not applicable, no logo on this surface
-- Accessibility commitment (WCAG 2.2 AA): all component pairs pass
-- Contradictions requiring approval: none
-```
-
-This is a convention, not an enforced check. Nothing validates it automatically:
-`brand.md` has no linter and the DESIGN.md CLI cannot see `brand.md`. Say so.
-
-## Conflicts
-
-| Situation | Action |
-|---|---|
-| Approved primitive unused | Fine, the surface did not need it |
-| Mandatory primitive missing | Report, ask |
-| Derived value (ramp, state, role) | Fine, expected |
-| Same meaning, different value | Report, ask, do not resolve |
-| Prohibited pattern present | Report, ask |
-
-Never edit `brand.md` to resolve a conflict with a design system. The dependency
-runs one way. If the brand is genuinely wrong, that is a separate conversation with
-the user.
-
-## Out of scope
-
-**Design inheritance.** A product's `DESIGN.md` does not inherit from its parent's.
-`brand.md` architecture types govern brand files only, and mapping them onto tokens
-is unreliable: an `endorsed` product might share every token, some, or none.
-Generate each design system as self-contained.
-
-**Cross-file validation.** No tool checks that mandatory brand colors appear in a
-design system. A future one would need to normalize color formats first, since
-`#B8422E` and its `rgb()` and `oklch()` equivalents are the same color and different
-strings.
-
-## Worked example
-
-[`examples/marginalia/`](../../../examples/marginalia/) is one brand as two design
-systems that deliberately do not match. Both lint clean.
+Never edit `brand.md` merely to make a design system pass. If the approved brand
+needs to change, handle that as a separate decision.
