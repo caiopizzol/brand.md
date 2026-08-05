@@ -66,16 +66,21 @@ language: en
 
 **`specVersion` gates required sections.** A file declaring `specVersion: "0.3.0"` is validated against the requirements in this document. A file with no `specVersion` is treated as `0.2.0` and keeps its original requirements, so no existing file becomes invalid when the spec adds a required section. See [Versioning](#versioning).
 
-Because this field decides which rules apply, its value has to resolve unambiguously. The value must be the exact three-part form `MAJOR.MINOR.PATCH`, and tools resolve it as follows:
+Because this field decides which rules apply, its value has to resolve unambiguously. The value must be the exact three-part form `MAJOR.MINOR.PATCH`, where each component is a non-negative integer with no leading zeros. `0.03.0` is malformed rather than another spelling of `0.3.0`, because a matcher that tolerates leading zeros silently maps two different strings onto the same version.
+
+Tools resolve the value as follows:
 
 | Value | Resolution |
 |---|---|
 | Absent | Validate as `0.2.0`. The only implicit case, and the reason existing files stay valid |
 | A version the tool knows | Validate against that version |
-| Unknown, same major, lower than the newest the tool knows | Validate against the closest known version at or below it |
-| Unknown, same major, higher than the newest the tool knows | Validate against the newest known version, and report that the file targets a newer spec |
-| A higher major than the tool knows | Do not validate. Report it as unsupported |
+| Unknown, in a known major, between two known versions | Validate against the closest known version below it |
+| Unknown, in a known major, higher than every known version in that major | Validate against the newest known version, and report that the file targets a newer spec |
+| Unknown, in a known major, lower than every known version in that major | Do not validate. Report it as unsupported |
+| In a major the tool does not know | Do not validate. Report it as unsupported |
 | Not the exact `MAJOR.MINOR.PATCH` form (`0.3`, `0.03.0`, `v0.3.0`, `latest`) | Error. Report the malformed value |
+
+The rows are mutually exclusive and cover every input. Two of them are easy to get wrong. A version *above* everything the tool knows is validated optimistically, because minor releases are additive and a newer file is mostly readable by an older tool. A version *below* everything it knows is not: falling back upward would apply rules that did not exist when the file was written, inventing failures. There is nothing sensible to validate `0.1.0` against on a tool that starts at `0.2.0`, so it is reported rather than guessed at.
 
 **A present-but-unrecognized value must never silently fall back to `0.2.0`.** That is the one behaviour this table exists to forbid. A file that means to be 0.3 but typos the version would otherwise be quietly validated under the older, looser rules and could ship missing a section 0.3 requires, with nothing reported. Absent means 0.2. Malformed means say so.
 
