@@ -53,7 +53,7 @@ The `/brand` Claude Code skill is the reference generator:
 
 1. **Research** — 5-8 web searches to understand the market, competitors, and audience
 2. **Interview** — Conversational founder interview with research-informed defaults
-3. **Generation** — Three-layer output, each section grounded in competitive whitespace
+3. **Generation**: four-layer output, each section grounded in competitive whitespace
 
 ## How tools consume it
 

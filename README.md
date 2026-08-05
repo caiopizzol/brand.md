@@ -6,6 +6,10 @@ An open standard for brand identity files.
 
 ## Quick example
 
+An abbreviated excerpt, not a conformant file: the `...` markers stand in for
+required sections left out for length. For a complete `specVersion: "0.3.0"` file
+with every required section, see [examples/marginalia/brand.md](examples/marginalia/brand.md).
+
 ```markdown
 ---
 name: "Acme"
@@ -54,8 +58,8 @@ We are the infrastructure teams trust when downtime isn't an option...
 ## Visual
 
 ### Core Colors
-- Deep Navy #0F172A (mandatory) — the brand's weight and steadiness
-- Sky Blue #38BDF8 (mandatory) — the one point of energy, used sparingly
+- Deep Navy #0F172A (mandatory): the brand's weight and steadiness
+- Sky Blue #38BDF8 (mandatory): the one point of energy, used sparingly
 
 ### Art Direction
 Visual territory: an aircraft maintenance log. Plain, exact, no ornament.
@@ -112,7 +116,9 @@ company/
     └── brand.md                ← product brand (Acme Analytics)
 ```
 
-Product brands are sparse: they only define sections where they diverge. Missing sections inherit from the parent. Guardrails and accessibility commitments always cascade down, and a child can tighten them but never loosen them.
+Product brands are sparse: they only define sections where they diverge. Missing sections inherit from the parent.
+
+Guardrails cascade down at every architecture except `independent`, where the child owns its own. Accessibility commitments cascade at every architecture, including `independent`. In both cases a child can tighten but never loosen.
 
 Four architecture types control how much a product inherits:
 

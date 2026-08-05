@@ -306,7 +306,7 @@ section {
 .terminal-body .h { color: rgba(255,255,255,0.7); }
 .terminal-body .h2 { color: rgba(255,255,255,0.55); }
 
-/* Three layers grid */
+/* Layers grid */
 .layers-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
