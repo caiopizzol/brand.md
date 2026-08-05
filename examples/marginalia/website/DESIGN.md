@@ -110,13 +110,13 @@ Warm neutrals carrying a single point of heat. The values are mirrored from the
 brand's approved identity colors; the role names are assigned here, because a role
 is a decision this surface makes and not something the brand can know in advance.
 
-| Role | Brand color | Value |
-|---|---|---|
-| `primary` | Ink (mandatory) | `#1B1A17` |
-| `tertiary` | Vermilion (mandatory) | `#B8422E` |
-| `neutral` | Limestone | `#F4F1EA` |
-| `secondary` | Rule | `#B4AEA2` |
-| `surface` | Paper | `#FFFFFF` |
+| Role | Brand color | Value | Origin |
+|---|---|---|---|
+| `primary` | Ink (mandatory) | `#1B1A17` | Mirrored |
+| `tertiary` | Vermilion (mandatory) | `#B8422E` | Mirrored |
+| `neutral` | Limestone | `#F4F1EA` | Mirrored |
+| `secondary` | Rule | `#B4AEA2` | Mirrored |
+| `surface` | none | `#FFFFFF` | Derived |
 
 - **Primary, Ink (#1B1A17):** All body text, all headlines, and the primary
   button. Warm rather than pure black, so a full page of it reads as printed
@@ -127,7 +127,9 @@ is a decision this surface makes and not something the brand can know in advance
   state. Nothing else. On a well-built page it appears once or twice.
 - **Secondary, Rule (#B4AEA2):** Hairline rules between sections and beneath
   metadata. Never text, never a fill.
-- **Surface, Paper (#FFFFFF):** Type reversed out of Primary or Tertiary only.
+- **Surface (#FFFFFF):** Type reversed out of Primary or Tertiary only. Not a brand
+  primitive. The brand approves no white, so this is derived here and carries no
+  identity meaning.
 
 ## Typography
 

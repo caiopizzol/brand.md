@@ -94,7 +94,11 @@ A structured value such as a `designs:` map would be the riskier shape, which is
 
 ### Why there is no reverse link
 
-A `design:` field in `brand.md` cannot represent one brand with several designs, and a list of them becomes stale the moment a surface is added, renamed, or removed. Finding the designs that belong to a brand is a downward directory walk, which needs no maintenance and cannot go out of date. Skip vendored and build directories (`node_modules`, `dist`, `vendor`, `build`) when walking.
+A `design:` field in `brand.md` cannot represent one brand with several designs, and a list of them becomes stale the moment a surface is added, renamed, or removed. Finding the designs that belong to a brand is a downward directory walk, which needs no maintenance. Skip vendored and build directories (`node_modules`, `dist`, `vendor`, `build`) when walking.
+
+Discovery does not go stale, but **attribution can still be wrong**, so the walk is two steps rather than one. Walking finds *candidates*. Associating a candidate with a brand means resolving its `brand` path and checking that it points at this file. A repository can easily contain a `DESIGN.md` that belongs to a nested sub-brand, an example or test fixture, an unlinked design system, or one explicitly linked to a different brand. Treating every descendant as an expression of the nearest brand misattributes all four.
+
+When a candidate has no `brand` field, it is unlinked. It may be inferred to belong to the nearest ancestor `brand.md`, but the inference must be labeled as an inference wherever it is reported.
 
 If real usage later proves that discovery is not enough, a structured field can be added then. It is not needed now.
 
@@ -104,7 +108,9 @@ There is deliberately no `scope` field. The directory path, `name`, `description
 
 ## Mirror primitives, derive the system, declare provenance
 
-DESIGN.md describes itself as self-contained, and its tokens are normative. A design system that omitted its own colors and told the reader to go look at another file would break that contract and would fail its own linter.
+DESIGN.md describes itself as self-contained, and its tokens are normative. A design system that omitted its own colors and told the reader to go look at another file would break that contract.
+
+It would not, however, be caught. Verified against 0.4.0: a `DESIGN.md` with no `colors` block at all lints with zero errors, zero warnings, and exit status 0. Not even the `missing-primary` warning fires, because that rule needs a `colors` block to inspect. So the self-contained contract is a contract, not an enforced rule, and an agent that delegates its colors upstream produces a file that passes lint and still fails the reader.
 
 So a linked `DESIGN.md` still contains the brand colors it uses and the font families it uses. That is not accidental overlap. It is controlled duplication with a defined direction:
 

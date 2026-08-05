@@ -329,11 +329,18 @@ New feature names require review before they ship publicly.
 
 ### Claims
 
+> **Illustrative only.** Marginalia is a fictional brand, so the evidence cited
+> below points at artifacts that do not exist and nothing here is actually
+> approved. The section shows the required *shape*: a claim, and a specific
+> verifiable artifact that supports it. In a real `brand.md` every entry must
+> cite something a reader can open.
+
 Approved:
 - "Annotations anchor to text rather than page coordinates." Evidence: the
   anchoring implementation, documented in the engineering architecture notes.
+  *(fictional artifact)*
 - "Everything exports to plain text." Evidence: the export test suite covers
-  every content type.
+  every content type. *(fictional artifact)*
 
 Requires review before use: any statement about how many researchers use the
 product, any comparison naming a competitor, any statement about data residency.
@@ -357,5 +364,10 @@ keyboard.
 Exceptions are tracked in the accessibility register and each one carries an
 owner and a date.
 
-This is the commitment. The measurement of specific color pairs and text sizes
-belongs to each `DESIGN.md`, where the linter checks it.
+This is the commitment, and only part of it can be checked automatically:
+
+- **Contrast on declared component pairs:** lintable. Each `DESIGN.md` declares its
+  background and text pairs and `designmd lint` reports any that fall below the bar.
+- **Text sizing, 200% zoom, focus visibility, keyboard operation, and conformance
+  as a whole:** verified separately, by testing and by people. No linter covers
+  these, and nothing in either file format does either.
