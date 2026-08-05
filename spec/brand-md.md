@@ -132,7 +132,9 @@ A company has one brand but multiple products. Each product needs its own voice,
 
 ### File discovery
 
-Tools discover `brand.md` files by walking up the directory tree from the current working directory. Every `brand.md` found between the working directory and the project root is loaded, closest first.
+Tools find `brand.md` files by walking up the directory tree from the current working directory, collecting every one between the working directory and the project root.
+
+Discovery runs leaf to root. Application runs root to leaf: the master brand is the base and each descendant narrows or overrides it. The two directions are separate steps, and mixing them up inverts the cascade.
 
 ```
 acme/
@@ -636,7 +638,9 @@ When included:
 - Commitments that go beyond the target, if any
 - Where exceptions are tracked, if they exist
 
-This is the commitment, not the verification. Whether a specific color pair meets a contrast ratio is a design-system question, and `DESIGN.md` tooling already checks it. Recording the commitment here is what gives that check something to be measured against.
+This is the commitment, not the verification. Recording it here is what gives verification something to be measured against.
+
+Be precise about how much of it is automatable. `DESIGN.md` tooling can check contrast for declared component background and text pairs, and that is the extent of it. Text sizing, zoom behavior, focus visibility, keyboard operation, and conformance as a whole are verified separately, by tooling that does not exist in either format and by people. Do not describe the commitment as something a linter confirms.
 
 ---
 
