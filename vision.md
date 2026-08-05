@@ -1,91 +1,53 @@
-# brand.md — Vision
+# brand.md Vision
 
-## An open standard for brand identity
+## Why it exists
 
-`brand.md` is a file format. It lives in your project root — alongside `README.md`, `CLAUDE.md`, and `AGENTS.md` — and gives AI tools and humans a single source of truth for how a brand looks, sounds, and behaves.
+AI tools routinely create public work without enough brand context. Teams either
+repeat their guidelines in every prompt or accept generic output.
 
-Like `llms.txt` gives LLMs context about a website, and `AGENTS.md` gives AI agents coding instructions, `brand.md` gives any tool the brand context it needs to stay on-brand.
+`brand.md` is an open file format that gives humans and tools one durable source
+for brand strategy, voice, identity primitives, and governance. It lives beside
+files such as `README.md` and `AGENTS.md` and remains readable without proprietary
+software.
 
-**Website:** thebrand.md (until brand.md is acquired)
-**Spec:** [spec/brand-md.md](spec/brand-md.md)
+## Principles
 
-## Four layers
+- **Identity before application.** `brand.md` records decisions that should survive
+  a redesign. A surface-specific `DESIGN.md` owns tokens, layout, components, and
+  motion.
+- **One identity, many expressions.** A brand can inform distinct design systems
+  for products, websites, docs, and presentations.
+- **Useful to agents.** Tonal rules are executable guidance, phrases are examples,
+  and approved claims prevent unsupported assertions.
+- **Sparse inheritance.** Product and sub-brand files state only meaningful
+  differences from their parent.
+- **Evidence over invention.** Research can support proposals, but tools must not
+  invent approval, substantiation, or licensing.
+- **Plain files over platforms.** Markdown and YAML keep the format portable,
+  inspectable, and easy to adopt.
 
-```
-brand.md
-├── ## Strategy     why the brand exists, where it stands
-├── ## Voice        how the brand speaks and writes
-├── ## Visual       approved identity primitives and art direction
-└── ## Governance   naming, claims, accessibility commitments (optional)
-```
+## Non-goals
 
-Each layer builds on the previous. Strategy informs Voice. Voice and Strategy inform Visual.
-
-### Strategy
-
-Audience, positioning, personality, references, promise, guardrails. The "why" and "who."
-
-Generated from: founder input plus agentic market research.
-
-### Voice
-
-The verbal identity — tonal rules, phrases, manifesto, social bios.
-
-This layer is the most directly useful for AI agents. Tonal rules are system prompt modifiers. Phrases are few-shot examples. The "We Say / We Never Say" table is a guardrails list.
-
-### Visual
-
-Approved identity primitives: core colors, typefaces, logo invariants, imagery territory, art direction.
-
-Everything is text-describable. No binary assets. This layer is deliberately narrow: it holds what is approved and invariant, not how a given surface applies it.
-
-It does not contain ramps, semantic roles, type scales, spacing, components, or motion. Those belong to a [`DESIGN.md`](https://github.com/google-labs-code/design.md), and one brand can have several, one per surface.
-
-### Governance
-
-Naming rules, approved claims and their evidence, accessibility commitments. Optional, because a brand may have none of these established yet.
-
-Claims carry a hard rule: an agent may draft candidates, but it must never record an unverified statement as approved.
-
-## How it's generated
-
-The `/brand` Claude Code skill is the reference generator:
-
-1. **Research** — 5-8 web searches to understand the market, competitors, and audience
-2. **Interview** — Conversational founder interview with research-informed defaults
-3. **Generation**: four-layer output, each section grounded in competitive whitespace
-
-## How tools consume it
-
-Any AI agent encountering `brand.md` should:
-
-1. Read **frontmatter** for brand name, tagline, language, specVersion
-2. Read **Strategy** for context on any decision
-3. Read **Voice > Tonal Rules** as system-prompt-level instructions
-4. Read **Voice > Phrases and Vocabulary** as few-shot examples and required terminology
-5. Read **Governance > Claims** before asserting anything factual in public copy
-6. Read **Visual** for approved primitives and art direction
-
-Each layer can be extracted independently. Writing a blog post? Read Voice. Naming a feature? Read Governance and Vocabulary. Preparing a pitch? Read Strategy and Voice.
-
-Building a UI? Read the surface's `DESIGN.md`. When one exists, it is authoritative for concrete visual decisions and `brand.md` is authoritative for meaning, voice, and which primitives are approved. Do not generate CSS from `brand.md` alone.
+- Replacing design systems or storing applied visual decisions
+- Design-system inheritance
+- Claiming that document linting proves rendered visual conformance
+- Adding speculative extension points before real usage requires them
 
 ## Roadmap
 
 ### Now
-- Spec v0.3, the DESIGN.md boundary, audience, references, governance, specVersion gating
-- `/brand` skill, narrowed to identity, with an opt-in design handoff
-- Worked example: one brand, two design systems that both lint clean
 
-### Next
-- Real usage across three surfaces of one brand, to learn which primitives actually repeat
-- Upstream addition to the DESIGN.md unknown-content table for frontmatter keys
-- Integrations, other AI tools reading `brand.md` automatically
+- Exercise spec 0.3 across real brands and multiple surfaces
+- Learn from the opt-in handoff between `brand.md` and `DESIGN.md`
+- Improve integrations as more AI tools consume the format
 
-### Later
-- `brand.md` domain acquisition (Moldova ccTLD)
-- A brand linter, once 0.3 has been exercised enough to know what is worth checking
-- Cross-file primitive validation with color normalization
-- Verbal consistency checker that audits copy against Voice
+### Later, when evidence supports it
 
-Deliberately not on the roadmap: design-system inheritance, and any visual conformance checking. The first needs real examples before it can be designed. The second is an unsolved capability, not something the DESIGN.md linter already covers.
+- A brand linter for rules worth enforcing
+- Cross-file primitive validation with normalized color formats
+- Verbal consistency checks against Voice
+- An upstream DESIGN.md clarification for unknown frontmatter fields
+
+The [specification](spec/brand-md.md) defines the format. The
+[DESIGN.md integration contract](spec/design-md-integration.md) defines the boundary
+between identity and its surface-specific expression.
