@@ -1,16 +1,16 @@
-# brand.md Specification
+# BRAND.md Specification
 
 **Version:** 0.3.0
 **Status:** Draft
 **Website:** thebrand.md (until brand.md is acquired)
 
-## What is brand.md?
+## What is BRAND.md?
 
-`brand.md` is a standard file format for defining brand identity. It lives in a project's root directory, alongside `README.md`, `CLAUDE.md`, and `AGENTS.md`, and gives AI tools and humans a single source of truth for what a brand means, how it speaks, and which identity assets are approved.
+`BRAND.md` is a standard file format for defining brand identity. It lives in a project's root directory, alongside `README.md`, `CLAUDE.md`, and `AGENTS.md`, and gives AI tools and humans a single source of truth for what a brand means, how it speaks, and which identity assets are approved.
 
-Any AI agent that writes copy, generates social posts, names a feature, or makes a public claim can read `brand.md` to stay on-brand without additional prompting.
+Any AI agent that writes copy, generates social posts, names a feature, or makes a public claim can read `BRAND.md` to stay on-brand without additional prompting.
 
-### What brand.md owns
+### What BRAND.md owns
 
 Durable identity: the things that should survive a complete visual redesign without repositioning the company.
 
@@ -19,30 +19,38 @@ Durable identity: the things that should survive a complete visual redesign with
 - Visual primitives: approved colors, approved typefaces, logo invariants, imagery territory, art direction
 - Governance: naming, claims, accessibility commitments
 
-### What brand.md does not own
+### What BRAND.md does not own
 
 An applied visual and interaction system. That is the job of a `DESIGN.md` file, a separate open format with its own specification and tooling.
 
-`brand.md` does not define color ramps, semantic color roles, hover and focus states, type scales, spacing systems, layout grids, shape language, elevation, components, motion, UI iconography, or responsive behavior. A brand can have several `DESIGN.md` files, one per surface (marketing site, product interface, presentation system), each expressing the same identity differently.
+`BRAND.md` does not define color ramps, semantic color roles, hover and focus states, type scales, spacing systems, layout grids, shape language, elevation, components, motion, UI iconography, or responsive behavior. A brand can have several `DESIGN.md` files, one per surface (marketing site, product interface, presentation system), each expressing the same identity differently.
 
 The boundary is a single test:
 
-> If it should survive a complete visual redesign, it belongs in `brand.md`.
+> If it should survive a complete visual redesign, it belongs in `BRAND.md`.
 > If it could change during that redesign without repositioning the company, it belongs in `DESIGN.md`.
 
-The full boundary, the link between the two files, and the rules for keeping them consistent are in [brand.md and DESIGN.md](design-md-integration.md). A worked example is in [`examples/marginalia/`](../examples/marginalia/).
+The full boundary, the link between the two files, and the rules for keeping them consistent are in [BRAND.md and DESIGN.md](design-md-integration.md). A worked example is in [`examples/marginalia/`](../examples/marginalia/).
 
 ## File Name and Location
 
-- **File name:** `brand.md` (lowercase, exactly)
+- **Canonical file name:** `BRAND.md` (uppercase, exactly)
 - **Location:** Project root directory for the master brand; any subdirectory for product brands
 - **Format:** Markdown with YAML frontmatter
+
+For compatibility, tools must also recognize the legacy lowercase name
+`brand.md` when `BRAND.md` is absent from that directory. Determine which names
+exist by enumerating the directory and comparing entry names exactly, not by
+probing both paths. On a case-insensitive file system, both probes may resolve to
+one entry and that is not a conflict. If two distinct entries named exactly
+`BRAND.md` and `brand.md` exist, report a conflict and stop rather than choosing
+or merging them.
 
 The file is standard markdown. It renders on GitHub, any editor highlights it, and any markdown parser can process it.
 
 ## Frontmatter
 
-Every `brand.md` file begins with YAML frontmatter:
+Every `BRAND.md` file begins with YAML frontmatter:
 
 ```yaml
 ---
@@ -148,33 +156,33 @@ A file using the 0.2 name is valid. A tool encountering either name must treat t
 
 ## Hierarchy
 
-A company has one brand but multiple products. Each product needs its own voice, colors, and positioning, while staying connected to the parent brand. `brand.md` supports this through directory-based hierarchy, following the same pattern as `CLAUDE.md` files.
+A company has one brand but multiple products. Each product needs its own voice, colors, and positioning, while staying connected to the parent brand. `BRAND.md` supports this through directory-based hierarchy, following the same pattern as `CLAUDE.md` files.
 
 ### File discovery
 
-Tools find `brand.md` files by walking up the directory tree from the current working directory, collecting every one between the working directory and the project root.
+Tools find `BRAND.md` files by walking up the directory tree from the current working directory, collecting every one between the working directory and the project root. In each directory, use the canonical uppercase name when present; otherwise accept the legacy lowercase alias described under [File Name and Location](#file-name-and-location).
 
 Discovery runs leaf to root. Application runs root to leaf: the master brand is the base and each descendant narrows or overrides it. The two directions are separate steps, and mixing them up inverts the cascade.
 
 ```
 acme/
-├── brand.md                    ← master brand (Acme Corp)
+├── BRAND.md                    ← master brand (Acme Corp)
 ├── website/
-│   └── ...                     ← inherits root brand.md
+│   └── ...                     ← inherits root BRAND.md
 ├── cloud/
-│   ├── brand.md                ← product brand (Acme Cloud)
+│   ├── BRAND.md                ← product brand (Acme Cloud)
 │   └── storage/
-│       └── brand.md            ← sub-product (Acme Cloud Storage)
+│       └── BRAND.md            ← sub-product (Acme Cloud Storage)
 └── analytics/
-    └── brand.md                ← product brand (Acme Analytics)
+    └── BRAND.md                ← product brand (Acme Analytics)
 ```
 
 A tool working in `acme/cloud/storage/` loads three files:
-1. `acme/brand.md` (master)
-2. `acme/cloud/brand.md` (product)
-3. `acme/cloud/storage/brand.md` (sub-product)
+1. `acme/BRAND.md` (master)
+2. `acme/cloud/BRAND.md` (product)
+3. `acme/cloud/storage/BRAND.md` (sub-product)
 
-A `brand.md` with no ancestors is a master brand, whether or not `type` is set.
+A `BRAND.md` with no ancestors is a master brand, whether or not `type` is set.
 
 ### Architecture types
 
@@ -189,11 +197,11 @@ The `architecture` frontmatter field tells tools how much to inherit from the pa
 
 If `architecture` is omitted, tools should default to `endorsed`, the most common pattern.
 
-`architecture` governs inheritance between `brand.md` files only. It says nothing about how a product's `DESIGN.md` relates to its parent's `DESIGN.md`. Design-system composition is a separate problem with its own unresolved questions (merge order, token deletion, component overrides), and this specification deliberately does not define it.
+`architecture` governs inheritance between `BRAND.md` files only. It says nothing about how a product's `DESIGN.md` relates to its parent's `DESIGN.md`. Design-system composition is a separate problem with its own unresolved questions (merge order, token deletion, component overrides), and this specification deliberately does not define it.
 
 ### Inheritance rules
 
-Child `brand.md` files are sparse. They only include sections where the product diverges from the parent. Missing sections are inherited from the nearest ancestor that defines them.
+Child `BRAND.md` files are sparse. They only include sections where the product diverges from the parent. Missing sections are inherited from the nearest ancestor that defines them.
 
 Which sections are typically inherited depends on the architecture:
 
@@ -229,9 +237,9 @@ This table is guidance, not enforcement. A product may include any section to ov
 
 **Accessibility commitments always merge and never loosen,** at every architecture including `independent`. A child may raise the bar. It may not lower one the parent committed to.
 
-### Example: product brand.md
+### Example: product BRAND.md
 
-A product `brand.md` that inherits Strategy and Visual from its parent, defining only its own Voice:
+A product `BRAND.md` that inherits Strategy and Visual from its parent, defining only its own Voice:
 
 ```yaml
 ---
@@ -275,7 +283,7 @@ your uptime dashboard and smile.
 - "We disappear so you can ship."
 ```
 
-This file has no Audience, Personality, References, Promise, Guardrails, Tonal Rules, Message Pillars, Core Colors, Typefaces, or Art Direction sections. All inherited from `acme/brand.md`.
+This file has no Audience, Personality, References, Promise, Guardrails, Tonal Rules, Message Pillars, Core Colors, Typefaces, or Art Direction sections. All inherited from `acme/BRAND.md`.
 
 ---
 
@@ -664,11 +672,11 @@ Be precise about how much of it is automatable. `DESIGN.md` tooling can check co
 
 ---
 
-## How AI Tools Should Consume brand.md
+## How AI Tools Should Consume BRAND.md
 
 ### Single file
 
-An AI agent encountering a single `brand.md` file should:
+An AI agent encountering a single `BRAND.md` file should:
 
 1. **Read frontmatter** for brand name, tagline, language, and `specVersion`
 2. **Read Strategy** to understand what the brand is and who it is for (context for any decision)
@@ -685,23 +693,23 @@ Each layer can be extracted independently:
 
 ### When a DESIGN.md is present
 
-`brand.md` is upstream of any `DESIGN.md`. The dependency runs one way: a `DESIGN.md` names the brand it expresses, and `brand.md` does not track its designs.
+`BRAND.md` is upstream of any `DESIGN.md`. The dependency runs one way: a `DESIGN.md` names the brand it expresses, and `BRAND.md` does not track its designs.
 
 When both files apply to the surface being built:
 
-- `brand.md` is authoritative for meaning, positioning, personality, voice, terminology, claims, and which visual primitives are approved
+- `BRAND.md` is authoritative for meaning, positioning, personality, voice, terminology, claims, and which visual primitives are approved
 - `DESIGN.md` is authoritative for concrete visual and interaction decisions: palette, roles, states, type scale, layout, shape, elevation, components, motion
 - A `DESIGN.md` may interpret the brand and may use a subset of approved primitives. It must not redefine an approved primitive with a contradictory value under the same meaning
 - Conflicts should be reported to a human, not silently resolved, and updating one file must not automatically rewrite the other
 
-Do not generate CSS, tokens, or component styles from `brand.md` alone when a `DESIGN.md` exists for that surface. Generating them from `brand.md` is what produces two competing design systems.
+Do not generate CSS, tokens, or component styles from `BRAND.md` alone when a `DESIGN.md` exists for that surface. Generating them from `BRAND.md` is what produces two competing design systems.
 
 ### Multiple files (hierarchy)
 
-When multiple `brand.md` files exist in the directory tree:
+When multiple `BRAND.md` files exist in the directory tree:
 
-1. **Discover** by walking up from the working directory, collecting all `brand.md` files
-2. **Load the master first**, the root `brand.md` is the brand foundation
+1. **Discover** by walking up from the working directory, collecting all canonical `BRAND.md` files or their legacy lowercase aliases
+2. **Load the master first**, the root `BRAND.md` is the brand foundation
 3. **Apply each child in order**, from root to leaf, each child narrows or overrides
 4. **For sections present in the child**, use the child's version
 5. **For sections missing in the child**, inherit from the nearest ancestor that defines them
@@ -709,7 +717,7 @@ When multiple `brand.md` files exist in the directory tree:
 7. **Merge guardrails**, a child's Guardrails are additive. The parent's "cannot be" list applies to all descendants unless architecture is `independent`
 8. **Merge accessibility commitments** at every architecture. A child may raise the bar, never lower it
 
-The mental model: brand.md inherits like CSS. The master brand is the base stylesheet. Each product layer adds specificity. More specific wins for explicit declarations. Unset properties cascade down.
+The mental model: BRAND.md inherits like CSS. The master brand is the base stylesheet. Each product layer adds specificity. More specific wins for explicit declarations. Unset properties cascade down.
 
 ## Versioning
 

@@ -1,10 +1,10 @@
-# brand.md
+# BRAND.md
 
 An open standard for brand identity files.
 
-`brand.md` lives in a project and gives AI tools durable context about how a brand
+`BRAND.md` lives in a project and gives AI tools durable context about how a brand
 looks, sounds, and behaves. Like `AGENTS.md` provides coding instructions,
-`brand.md` provides brand strategy, voice, approved identity primitives, and
+`BRAND.md` provides brand strategy, voice, approved identity primitives, and
 governance.
 
 ## Install and run
@@ -27,7 +27,7 @@ claude --plugin-dir ./brand.md
 ## Example
 
 This abbreviated excerpt is not a conformant file. See the
-[complete Marginalia example](examples/marginalia/brand.md) for every required
+[complete Marginalia example](examples/marginalia/BRAND.md) for every required
 section.
 
 ```markdown
@@ -69,13 +69,13 @@ behavior. Files without `specVersion` continue to be interpreted as 0.2.
 
 ## Relationship to DESIGN.md
 
-`brand.md` owns identity that should survive a complete visual redesign.
+`BRAND.md` owns identity that should survive a complete visual redesign.
 [`DESIGN.md`](https://github.com/google-labs-code/design.md) owns the applied visual
 system for one surface, including tokens, type scales, layout, components, and
 motion.
 
 One brand can inform several separate design systems. Each `DESIGN.md` points to
-its brand with `brand: ../brand.md`; the brand file does not maintain a reverse
+its brand with `brand: ../BRAND.md`; the brand file does not maintain a reverse
 list. Read the [integration contract](spec/design-md-integration.md) or explore the
 [worked example](examples/marginalia).
 

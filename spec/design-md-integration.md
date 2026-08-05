@@ -1,21 +1,21 @@
-# brand.md and DESIGN.md
+# BRAND.md and DESIGN.md
 
-**Applies to:** brand.md specification 0.3.0
+**Applies to:** BRAND.md specification 0.3.0
 **Status:** Draft
 
 [DESIGN.md](https://github.com/google-labs-code/design.md) is an open format for describing a visual and interaction system to coding agents. It pairs machine-readable design tokens with prose that explains how to apply them, and it ships a CLI that lints, diffs, and exports.
 
-`brand.md` and `DESIGN.md` are complementary, not competing. This document defines the boundary, the link between them, and the rules for keeping them consistent.
+`BRAND.md` and `DESIGN.md` are complementary, not competing. This document defines the boundary, the link between them, and the rules for keeping them consistent.
 
 ## The model
 
-> `brand.md` owns durable identity intent and primitives.
+> `BRAND.md` owns durable identity intent and primitives.
 > `DESIGN.md` owns a self-contained visual system for one surface.
 
-The dependency runs one way. A `DESIGN.md` declares which brand it expresses. A `brand.md` does not track its designs.
+The dependency runs one way. A `DESIGN.md` declares which brand it expresses. A `BRAND.md` does not track its designs.
 
 ```
-brand.md                      ← one identity
+BRAND.md                      ← one identity
 ├── website/DESIGN.md         ← an independent literary journal
 ├── product/DESIGN.md         ← a research archive workstation
 └── decks/DESIGN.md           ← a museum exhibition catalog
@@ -25,7 +25,7 @@ One brand, several surfaces, each a legitimate and different expression of the s
 
 ## Ownership
 
-| Concern | brand.md | DESIGN.md |
+| Concern | BRAND.md | DESIGN.md |
 |---|---|---|
 | Purpose, origin, ambition | Owns | |
 | Audience and market | Owns | |
@@ -53,7 +53,7 @@ One brand, several surfaces, each a legitimate and different expression of the s
 
 The test, applied to any single item:
 
-> If it should survive a complete visual redesign, it belongs in `brand.md`.
+> If it should survive a complete visual redesign, it belongs in `BRAND.md`.
 > If it could change during that redesign without repositioning the company, it belongs in `DESIGN.md`.
 
 ## The link
@@ -64,7 +64,7 @@ A `DESIGN.md` declares its brand with a relative path in frontmatter:
 ---
 name: Marginalia Product Interface
 description: Visual system for the authenticated reading and annotation workspace.
-brand: ../brand.md
+brand: ../BRAND.md
 colors:
   primary: "#1B1A17"
 ---
@@ -79,7 +79,7 @@ Include the relationship in prose as well, so it survives any tool that only rea
 ```markdown
 ## Overview
 
-This design system expresses the [Marginalia brand](../brand.md) for the
+This design system expresses the [Marginalia brand](../BRAND.md) for the
 authenticated reading workspace.
 ```
 
@@ -98,11 +98,11 @@ A structured value such as a `designs:` map would be the riskier shape, which is
 
 ### Why there is no reverse link
 
-A `design:` field in `brand.md` cannot represent one brand with several designs, and a list of them becomes stale the moment a surface is added, renamed, or removed. Finding the designs that belong to a brand is a downward directory walk, which needs no maintenance. Skip vendored and build directories (`node_modules`, `dist`, `vendor`, `build`) when walking.
+A `design:` field in `BRAND.md` cannot represent one brand with several designs, and a list of them becomes stale the moment a surface is added, renamed, or removed. Finding the designs that belong to a brand is a downward directory walk, which needs no maintenance. Skip vendored and build directories (`node_modules`, `dist`, `vendor`, `build`) when walking.
 
 Discovery does not go stale, but **attribution can still be wrong**, so the walk is two steps rather than one. Walking finds *candidates*. Associating a candidate with a brand means resolving its `brand` path and checking that it points at this file. A repository can easily contain a `DESIGN.md` that belongs to a nested sub-brand, an example or test fixture, an unlinked design system, or one explicitly linked to a different brand. Treating every descendant as an expression of the nearest brand misattributes all four.
 
-When a candidate has no `brand` field, it is unlinked. It may be inferred to belong to the nearest ancestor `brand.md`, but the inference must be labeled as an inference wherever it is reported.
+When a candidate has no `brand` field, it is unlinked. It may be inferred to belong to the nearest ancestor `BRAND.md`, but the inference must be labeled as an inference wherever it is reported.
 
 If real usage later proves that discovery is not enough, a structured field can be added then. It is not needed now.
 
@@ -129,7 +129,7 @@ Two rules follow:
 
 ### Brand colors are named by meaning, design tokens by role
 
-`brand.md` names a color for what it means: Ink, Vermilion, Limestone. `DESIGN.md`
+`BRAND.md` names a color for what it means: Ink, Vermilion, Limestone. `DESIGN.md`
 names it for the job it does on this surface: `primary`, `tertiary`, `neutral`.
 
 Do not carry the brand names across as token keys. The DESIGN.md spec requires a
@@ -179,7 +179,7 @@ Copying the brand's art direction verbatim into every design file produces three
 
 | Layer | Text |
 |---|---|
-| brand.md Art Direction | The reference room of a research library: one ink, generous margins, no ornament. |
+| BRAND.md Art Direction | The reference room of a research library: one ink, generous margins, no ornament. |
 | website/DESIGN.md Overview | An independent literary journal. Long measure, visible white space, a single accent used only in pull quotes. |
 | product/DESIGN.md Overview | A research archive workstation. Dense, keyboard-first, calm under long sessions, chrome that recedes behind the text being read. |
 
@@ -207,7 +207,7 @@ Brand alignment
 - Contradictions requiring approval: none
 ```
 
-**This is a convention, not an enforcement guarantee.** Nothing checks it automatically today. `brand.md` has no linter, and the DESIGN.md CLI has no knowledge of `brand.md`. An agent following this document performs the review; a human decides.
+**This is a convention, not an enforcement guarantee.** Nothing checks it automatically today. `BRAND.md` has no linter, and the DESIGN.md CLI has no knowledge of `BRAND.md`. An agent following this document performs the review; a human decides.
 
 Updating one file must never silently rewrite the other.
 
@@ -219,7 +219,7 @@ Named so nobody assumes otherwise.
 
 **Visual conformance is unsolved.** `designmd lint` validates the document: token structure, references, section order, contrast pairs. It does not inspect a rendered page, CSS output, screenshots, logo misuse, photography, or whether components actually consume the tokens they declare. Scoping a future brand checker to verbal content is reasonable; visual conformance remains an open capability, not a delegated one.
 
-**Design inheritance is out of scope.** `brand.md` architecture types govern inheritance between brand files only. Mapping them onto token inheritance is tempting and unreliable: an `endorsed` product might share every token, some, or none, and a `branded-house` product might need a distinct system for platform or accessibility reasons. DESIGN.md is self-contained and has no inheritance semantics, and adding them would require settling merge order, token deletion, component overrides, cycles, missing parents, and export and diff behavior. That is a design-system composition feature and it should wait for real examples.
+**Design inheritance is out of scope.** `BRAND.md` architecture types govern inheritance between brand files only. Mapping them onto token inheritance is tempting and unreliable: an `endorsed` product might share every token, some, or none, and a `branded-house` product might need a distinct system for platform or accessibility reasons. DESIGN.md is self-contained and has no inheritance semantics, and adding them would require settling merge order, token deletion, component overrides, cycles, missing parents, and export and diff behavior. That is a design-system composition feature and it should wait for real examples.
 
 ## Validating a DESIGN.md
 
@@ -235,18 +235,18 @@ With Bun:
 bunx --package @google/design.md designmd lint DESIGN.md
 ```
 
-## Migrating a 0.2 brand.md that contains visual content
+## Migrating a 0.2 brand file that contains visual content
 
-A 0.2 `brand.md` typically holds a palette with usage rules and a type scale. That content is not deleted, it moves downstream.
+A legacy 0.2 `brand.md` typically holds a palette with usage rules and a type scale. Rename it to the canonical `BRAND.md` when convenient, and update any relative links at the same time. The visual content is not deleted, it moves downstream.
 
 1. Generate or open the `DESIGN.md` for the surface that needs it
 2. Move ramps, semantic roles, and application rules ("use for CTAs", hover states) into that file
 3. Move sizes, weights, line heights, and tracking into its `typography` tokens
-4. Reduce `brand.md` to approved primitives: colors with meaning and mandatory or optional status, typefaces with fallbacks and verified licensing
+4. Reduce `BRAND.md` to approved primitives: colors with meaning and mandatory or optional status, typefaces with fallbacks and verified licensing
 5. Add `brand: <relative-path>` to the `DESIGN.md`, plus the Overview provenance sentence
 6. Run the linter
 
-If there is no `DESIGN.md` yet, do step 1 first. Do not delete values from `brand.md` before they have somewhere to live.
+If there is no `DESIGN.md` yet, do step 1 first. Do not delete values from `BRAND.md` before they have somewhere to live.
 
 ## Worked example
 

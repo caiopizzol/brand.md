@@ -8,7 +8,7 @@ language: en
 
 # Marginalia
 
-A worked example of a 0.3 `brand.md`. It is the upstream identity for two design
+A worked example of a 0.3 `BRAND.md`. It is the upstream identity for two design
 systems: [`website/DESIGN.md`](website/DESIGN.md) and
 [`product/DESIGN.md`](product/DESIGN.md). Both express this brand and neither
 looks like the other.
@@ -332,7 +332,7 @@ New feature names require review before they ship publicly.
 > **Illustrative only.** Marginalia is a fictional brand, so the evidence cited
 > below points at artifacts that do not exist and nothing here is actually
 > approved. The section shows the required *shape*: a claim, and a specific
-> verifiable artifact that supports it. In a real `brand.md` every entry must
+> verifiable artifact that supports it. In a real `BRAND.md` every entry must
 > cite something a reader can open.
 
 Approved:

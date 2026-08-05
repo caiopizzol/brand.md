@@ -1,25 +1,28 @@
 ---
 name: brand
-description: Create or update brand.md files for strategy, audience, positioning, personality, messaging, voice, approved identity primitives, governance, and sub-brand inheritance. Use for durable verbal and strategic identity. Hand applied visual systems such as tokens, layout, components, and motion to DESIGN.md.
+description: Create or update BRAND.md files for strategy, audience, positioning, personality, messaging, voice, approved identity primitives, governance, and sub-brand inheritance. Use for durable verbal and strategic identity. Hand applied visual systems such as tokens, layout, components, and motion to DESIGN.md.
 ---
 
-# brand.md Generator
+# BRAND.md Generator
 
-Create or update `brand.md` at spec version 0.3.0. The format and section
+Create or update `BRAND.md` at spec version 0.3.0. The format and section
 requirements are defined in [`spec/brand-md.md`](../../spec/brand-md.md).
 
-`brand.md` owns identity that should survive a complete visual redesign.
+`BRAND.md` owns identity that should survive a complete visual redesign.
 `DESIGN.md` owns how that identity is applied to a particular surface. Never put
 ramps, semantic roles, type scales, spacing, layout, components, or motion in
-`brand.md`.
+`BRAND.md`.
 
 ## Workflow
 
 ### 1. Resolve existing context
 
 Walk from the working directory to the project root and read every applicable
-`brand.md`, root to leaf. For a child brand, write only sections that differ from
-the effective parent.
+`BRAND.md`, root to leaf. Accept a legacy lowercase `brand.md` only when no
+`BRAND.md` exists in the same directory. Compare exact directory entry names;
+two successful path probes may still refer to one file on a case-insensitive file
+system. If both spellings are distinct entries, report the conflict and stop. For
+a child brand, write only sections that differ from the effective parent.
 
 Ask which architecture applies: `branded-house`, `endorsed`, `sub-brand`, or
 `independent`. Guardrails inherit unless the child is `independent`; inherited
@@ -78,7 +81,7 @@ Keep identity primitives narrow:
 - Art Direction names a concrete visual territory, not a list of adjectives.
 - Claims distinguish approved, evidenced claims from draft candidates.
 
-Use [`examples/marginalia/brand.md`](../../examples/marginalia/brand.md) when a
+Use [`examples/marginalia/BRAND.md`](../../examples/marginalia/BRAND.md) when a
 complete example is useful.
 
 ### 4. Hand off to design only when requested
@@ -86,7 +89,7 @@ complete example is useful.
 After the user confirms the brand, offer a `DESIGN.md` for a named surface. If they
 accept, read and follow
 [`references/design-md-handoff.md`](references/design-md-handoff.md). Otherwise
-stop. Never add applied design recommendations to `brand.md` as a substitute.
+stop. Never add applied design recommendations to `BRAND.md` as a substitute.
 
 ### 5. Report possible downstream drift
 
@@ -102,5 +105,5 @@ requests the design handoff. This is a review convention, not an automated check
   them.
 - Tonal rules are usable instructions, and guardrails give a practical litmus
   test.
-- No applied tokens, roles, components, or motion appear in `brand.md`.
+- No applied tokens, roles, components, or motion appear in `BRAND.md`.
 - No brand-to-design conflict is silently resolved.

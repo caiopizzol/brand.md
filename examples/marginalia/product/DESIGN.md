@@ -2,7 +2,7 @@
 version: alpha
 name: Marginalia Workstation
 description: Visual system for the authenticated reading and annotation workspace.
-brand: ../brand.md
+brand: ../BRAND.md
 colors:
   primary: "#1B1A17"
   secondary: "#5C574E"
@@ -108,7 +108,7 @@ components:
 
 ## Overview
 
-This design system expresses the [Marginalia brand](../brand.md) for the
+This design system expresses the [Marginalia brand](../BRAND.md) for the
 authenticated product: the reader, the annotation rail, and the corpus and thread
 views.
 

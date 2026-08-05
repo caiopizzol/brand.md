@@ -1,18 +1,18 @@
-# brand.md Vision
+# BRAND.md Vision
 
 ## Why it exists
 
 AI tools routinely create public work without enough brand context. Teams either
 repeat their guidelines in every prompt or accept generic output.
 
-`brand.md` is an open file format that gives humans and tools one durable source
+`BRAND.md` is an open file format that gives humans and tools one durable source
 for brand strategy, voice, identity primitives, and governance. It lives beside
 files such as `README.md` and `AGENTS.md` and remains readable without proprietary
 software.
 
 ## Principles
 
-- **Identity before application.** `brand.md` records decisions that should survive
+- **Identity before application.** `BRAND.md` records decisions that should survive
   a redesign. A surface-specific `DESIGN.md` owns tokens, layout, components, and
   motion.
 - **One identity, many expressions.** A brand can inform distinct design systems
@@ -38,7 +38,7 @@ software.
 ### Now
 
 - Exercise spec 0.3 across real brands and multiple surfaces
-- Learn from the opt-in handoff between `brand.md` and `DESIGN.md`
+- Learn from the opt-in handoff between `BRAND.md` and `DESIGN.md`
 - Improve integrations as more AI tools consume the format
 
 ### Later, when evidence supports it
