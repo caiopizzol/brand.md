@@ -30,6 +30,8 @@ The boundary is a single test:
 > If it should survive a complete visual redesign, it belongs in `brand.md`.
 > If it could change during that redesign without repositioning the company, it belongs in `DESIGN.md`.
 
+The full boundary, the link between the two files, and the rules for keeping them consistent are in [brand.md and DESIGN.md](design-md-integration.md). A worked example is in [`examples/marginalia/`](../examples/marginalia/).
+
 ## File Name and Location
 
 - **File name:** `brand.md` (lowercase, exactly)
