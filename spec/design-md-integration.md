@@ -66,9 +66,13 @@ name: Marginalia Product Interface
 description: Visual system for the authenticated reading and annotation workspace.
 brand: ../brand.md
 colors:
-  ink: "#1B1A17"
+  primary: "#1B1A17"
 ---
 ```
+
+The token key is the role, not the brand's name for the color. `#1B1A17` is the
+brand's Ink, mirrored here and assigned the `primary` role by this surface. See
+[Brand colors are named by meaning, design tokens by role](#brand-colors-are-named-by-meaning-design-tokens-by-role).
 
 Include the relationship in prose as well, so it survives any tool that only reads the body:
 
