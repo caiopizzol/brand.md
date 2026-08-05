@@ -1,7 +1,7 @@
 {
   "name": "brand-md",
-  "version": "0.1.0",
-  "description": "Generate brand.md files — the open standard for brand identity. Research your market, interview the founder, and produce a complete brand strategy, voice, and visual direction.",
+  "version": "0.2.0",
+  "description": "Generate brand.md files, the open standard for brand identity. Research your market, interview the founder, and produce a brand's strategy, voice, visual primitives, and governance, then hand off to a DESIGN.md for the applied visual system.",
   "author": {
     "name": "Caio Pizzol",
     "url": "https://github.com/thebrandmd"
