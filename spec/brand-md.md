@@ -186,13 +186,16 @@ Which sections are typically inherited depends on the architecture:
 | **Strategy > Guardrails** | Inherit | Inherit | Inherit | Own |
 | **Voice > Identity** | Inherit | Own | Own | Own |
 | **Voice > Tagline & Slogans** | Own | Own | Own | Own |
+| **Voice > Manifesto** | Inherit | Inherit | Own | Own |
 | **Voice > Message Pillars** | Inherit | Own | Own | Own |
 | **Voice > Phrases** | Own | Own | Own | Own |
 | **Voice > Vocabulary** | Inherit | Inherit | Inherit | Own |
+| **Voice > Social Bios** | Inherit | Own | Own | Own |
 | **Voice > Tonal Rules** | Inherit | Inherit | Inherit | Own |
 | **Visual > Logo & Marks** | Inherit | Inherit | Inherit | Own |
 | **Visual > Core Colors** | Inherit, may add | Inherit, may add | Own | Own |
 | **Visual > Typefaces** | Inherit | Inherit | Own | Own |
+| **Visual > Photography & Illustration** | Inherit | Inherit | Own | Own |
 | **Visual > Art Direction** | Inherit, narrow focus | Own | Own | Own |
 | **Governance > Naming** | Inherit | Inherit | Inherit | Own |
 | **Governance > Claims** | Inherit | Inherit | Inherit | Own |
