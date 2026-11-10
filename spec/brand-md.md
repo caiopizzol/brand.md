@@ -100,6 +100,30 @@ The rows are mutually exclusive and cover every input. Two of them are easy to g
 
 Keep frontmatter minimal. Every field here is machine-actionable. An AI agent reads `name` to know what to call the brand, `tagline` for quick reference, `language` to know what language to generate content in. Anything requiring interpretation belongs in a section, not frontmatter.
 
+### Optional: `provenance` and `validation`
+
+`BRAND.md` files are increasingly *generated* by tools and then travel — into repos, briefs, and chats. `version` and `specVersion` tell a reader *what* they're looking at, but not *where it came from*, *how old the content is*, or *which parts are actually confirmed by the brand owner versus inferred by a tool*.
+
+Two optional frontmatter blocks address that:
+
+**`provenance`** — `generated_by`, `generated_at` (ISO date), optional `canonical` (URL of the maintained version), and optional `source` (the site a generator scanned, if any). Without it, generated files silently go stale and readers have no way to find the living version.
+
+**`validation`** — one entry per top-level layer (or any section a tool fills), each `{ status: filled|empty, date? }`, keyed by the lowercased name. A generator can produce a plausible-looking file from a website scan, and a reader has no way to tell a rich section from a stub. This block states, mechanically, which parts carry content and which came back empty. It is deliberately *not* a claim that the content is correct — nothing a generator can do establishes that. It is tool-neutral: any tool may stamp it, and any tool may ignore it.
+
+```yaml
+provenance:
+  generated_by: <tool or author>
+  generated_at: 2026-08-14
+  canonical: "https://example.com/acme/brand.md"
+validation:
+  strategy: { status: empty }
+  voice: { status: filled, date: 2026-08-01 }
+```
+
+Both blocks are optional and additive. Tools that do not recognize them must ignore them; files without them remain valid as before.
+
+For teams that need finer-grained, per-claim provenance (origin tags on individual statements rather than whole sections), see [`@avant-garde/brand-md`](https://www.npmjs.com/package/@avant-garde/brand-md), which explores that at a finer grain with citations and freshness windows. The file/section-level blocks here are coarser by design — they are what generators can state mechanically today, and they nest cleanly with a future per-claim convention living inside the sections they describe.
+
 ## Section Structure
 
 The file uses H1 for the document title, H2 for layers, and H3 for sections within each layer. Four layers, in order: **Strategy**, **Voice**, **Visual**, **Governance**.
